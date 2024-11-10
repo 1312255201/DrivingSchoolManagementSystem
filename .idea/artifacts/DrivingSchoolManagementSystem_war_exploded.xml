@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="DrivingSchoolManagementSystem:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/DrivingSchoolManagementSystem_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="DrivingSchoolManagementSystem" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="DrivingSchoolManagementSystem/web/Web" />
+    </root>
+  </artifact>
+</component>

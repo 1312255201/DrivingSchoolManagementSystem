@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         Connection conn = null;
         try {
             conn = DBUtil.getConnection();
-            String query = "SELECT id FROM users WHERE phonenumber = ? AND password = ?";
+            String query = "SELECT id,role FROM users WHERE phonenumber = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setString(1, username);
@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
                 // 登录成功，创建会话
                 HttpSession session = request.getSession();
                 session.setAttribute("user", rs.getInt("id"));
+                session.setAttribute("role", rs.getString("role"));
                 session.setAttribute("username", username);
                 response.sendRedirect("dashboard.jsp");
             } else {

@@ -1,4 +1,4 @@
-package cn.bugfish.drivingschoolmanagementsystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
 
 import java.io.IOException;
 import java.sql.Connection;

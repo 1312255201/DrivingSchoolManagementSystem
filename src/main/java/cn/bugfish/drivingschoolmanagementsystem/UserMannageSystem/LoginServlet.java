@@ -1,4 +1,4 @@
-package cn.bugfish.drivingschoolmanagementsystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         Connection conn = null;
         try {
             conn = DBUtil.getConnection();
-            String query = "SELECT id FROM users WHERE username = ? AND password = ?";
+            String query = "SELECT id FROM users WHERE phonenumber = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setString(1, username);
@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
                 // 登录成功，创建会话
                 HttpSession session = request.getSession();
-                session.setAttribute("userId", rs.getInt("id"));
+                session.setAttribute("user", rs.getInt("id"));
                 session.setAttribute("username", username);
                 response.sendRedirect("dashboard.jsp");
             } else {

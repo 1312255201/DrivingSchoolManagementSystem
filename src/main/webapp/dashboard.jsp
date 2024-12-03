@@ -93,11 +93,12 @@
             <h2>驾校管理系统</h2>
             <%
                 session = request.getSession(false);
-                String userRole = (String) session.getAttribute("role"); // 获取用户身份
+                String userRole = (String) session.getAttribute("userrole"); // 获取用户身份
 
                 if ("admin".equals(userRole)) {
             %>
             <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">概览</a>
+            <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=students" class="<%= "students".equals(request.getParameter("section")) ? "active" : "" %>">学员管理</a>
             <a href="dashboard.jsp?section=instructors" class="<%= "instructors".equals(request.getParameter("section")) ? "active" : "" %>">教练管理</a>
             <a href="dashboard.jsp?section=settings" class="<%= "settings".equals(request.getParameter("section")) ? "active" : "" %>">系统设置</a>
@@ -105,11 +106,13 @@
             } else if ("user".equals(userRole)) {
             %>
             <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">我的课程</a>
+            <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=schedule" class="<%= "schedule".equals(request.getParameter("section")) ? "active" : "" %>">我的日程</a>
             <%
             } else if ("coach".equals(userRole)) {
             %>
             <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">我的学员</a>
+            <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=schedule" class="<%= "schedule".equals(request.getParameter("section")) ? "active" : "" %>">我的课程表</a>
             <%
                 } else {
@@ -130,7 +133,9 @@
     %><jsp:include page="instructors.jsp" /> <%
     } else if ("settings".equals(section)) {
     %><jsp:include page="settings.jsp" /> <%
-    } else {
+    }else if ("profile".equals(section)) {
+    %><jsp:include page="profile.jsp" /> <%
+    }else {
     %><jsp:include page="home.jsp" /> <%
         }
     %>

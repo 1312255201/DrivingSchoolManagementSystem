@@ -30,7 +30,7 @@ public class AuthFilter implements Filter {
         }
 
         // 判断用户是否登录
-        Object user = httpRequest.getSession().getAttribute("user");
+        Object user = httpRequest.getSession().getAttribute("userid");
         if (user == null) {
             // 未登录，跳转到登录页面
             httpResponse.sendRedirect("login.jsp");

@@ -89,6 +89,10 @@
     <td><%= role %></td>
     <td>
       <button class="edit-btn" onclick="openEditModal(<%= id %>, '<%= name %>', '<%= idnumber %>', '<%= phonenumber %>', '<%= email %>', '<%= role %>')">编辑</button>
+      <form action="ResetPasswordServlet" method="post" style="display:inline;">
+        <input type="hidden" name="id" value="<%= id %>">
+        <button class="reset-btn" type="submit">重置密码</button>
+      </form>
     </td>
   </tr>
   <%

@@ -1,15 +1,20 @@
 package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
+@AllArgsConstructor
 public class User {
     private Integer id;
+    private String role;
+    private String name;
+    private String idnumber;
     private String phonenumber;
     private String email;
     private String password;
-    private LocalDateTime created_at;
+    private Timestamp created_at;
 }

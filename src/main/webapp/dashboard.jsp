@@ -90,7 +90,7 @@
     <!-- 左侧导航栏 -->
     <div class="sidebar">
         <div>
-            <h2>驾校管理系统</h2>
+            <h2>感谢你选择美林驾校</h2>
             <%
                 session = request.getSession(false);
                 String userRole = (String) session.getAttribute("userrole"); // 获取用户身份
@@ -99,7 +99,7 @@
             %>
             <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">概览</a>
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
-            <a href="dashboard.jsp?section=students" class="<%= "students".equals(request.getParameter("section")) ? "active" : "" %>">学员管理</a>
+            <a href="dashboard.jsp?section=usermanage" class="<%= "usermanage".equals(request.getParameter("section")) ? "active" : "" %>">用户管理</a>
             <a href="dashboard.jsp?section=instructors" class="<%= "instructors".equals(request.getParameter("section")) ? "active" : "" %>">教练管理</a>
             <a href="dashboard.jsp?section=settings" class="<%= "settings".equals(request.getParameter("section")) ? "active" : "" %>">系统设置</a>
             <%
@@ -135,6 +135,8 @@
     %><jsp:include page="settings.jsp" /> <%
     }else if ("profile".equals(section)) {
     %><jsp:include page="profile.jsp" /> <%
+    }else if ("usermanage".equals(section)) {
+    %><jsp:include page="user-management.jsp" /> <%
     }else {
     %><jsp:include page="home.jsp" /> <%
         }

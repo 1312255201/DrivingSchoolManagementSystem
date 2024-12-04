@@ -24,7 +24,9 @@ function submitEdit() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             if (xhr.responseText === 'success') {
                 alert('修改成功！');
-                document.getElementById(`display-${field}`).innerText = newValue;
+                if(!"${field}".equals("password")){
+                    document.getElementById(`display-${field}`).innerText = newValue;
+                }
                 closeModal();
             } else {
                 alert('修改失败，请重试！');

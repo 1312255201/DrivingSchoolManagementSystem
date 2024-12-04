@@ -51,6 +51,10 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("useridnumber", rs.getString("idnumber"));
                 session.setAttribute("userphonenumber", rs.getString("phonenumber"));
                 session.setAttribute("useremail", rs.getString("email"));
+                if ( !rs.getString("idnumber").equals("请补全个人信息"))
+                {
+                    session.setAttribute("avatar", "avatars/"+ rs.getString("idnumber") + ".jpg");
+                }
                 response.sendRedirect("dashboard.jsp");
             } else {
                 // 登录失败，重定向到登录页面并显示错误信息

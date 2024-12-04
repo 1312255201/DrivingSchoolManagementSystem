@@ -90,7 +90,7 @@
 </head>
 <body>
 <div class="login-container">
-    <h1>驾校管理系统</h1>
+    <h1>感谢选择美林驾校</h1>
 
     <!-- 显示错误消息 -->
     <%

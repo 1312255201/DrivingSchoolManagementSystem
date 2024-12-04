@@ -57,6 +57,8 @@ public class EditProfileServlet extends HttpServlet {
         } else if ("idnumber".equals(field)) {
             session.setAttribute("useridnumber", newValue);
             success = userDao.updateUser(user,"idnumber",newValue);
+        }else if ("password".equals(field)) {
+            success = userDao.updateUser(user,"password",newValue);
         }
         if (success)
         {

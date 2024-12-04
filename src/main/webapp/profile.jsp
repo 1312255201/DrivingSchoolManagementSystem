@@ -7,6 +7,8 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.nio.file.Files" %>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -153,7 +155,7 @@
     <!-- 个人证件照 -->
     <div class="profile-pic">
         <% String avatarUrl = (String) request.getSession(false).getAttribute("avatar"); %>
-        <% if (avatarUrl != null && !avatarUrl.isEmpty()) { %>
+        <% if (avatarUrl != null && !avatarUrl.isEmpty() ) { %>
         <img src="<%= avatarUrl %>" alt="证件照">
         <% } else { %>
         <img src="img/default-avatar.png" alt="默认头像">
@@ -181,6 +183,11 @@
             <label>身份证号</label>
             <span id="display-idnumber"><%= request.getSession(false).getAttribute("useridnumber") %></span>
             <button onclick="openModal('idnumber', '<%= request.getSession(false).getAttribute("useridnumber") %>')">修改</button>
+        </div>
+        <div class="info-item">
+            <label>密码</label>
+            <span id="display-password">*******</span>
+            <button onclick="openModal('password', '*******')">修改</button>
         </div>
         <div class="info-item">
             <label>权限组</label>

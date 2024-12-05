@@ -35,7 +35,7 @@
       background-color: #007BFF;
       color: white;
     }
-    .edit-btn {
+    .edit-btn, .reset-btn {
       padding: 5px 10px;
       background-color: #007BFF;
       color: white;
@@ -43,8 +43,14 @@
       border-radius: 5px;
       cursor: pointer;
     }
+    .reset-btn {
+      background-color: #28a745;
+    }
     .edit-btn:hover {
       background-color: #0056b3;
+    }
+    .reset-btn:hover {
+      background-color: #218838;
     }
   </style>
 </head>

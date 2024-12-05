@@ -7,8 +7,6 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="java.io.File" %>
-<%@ page import="java.nio.file.Files" %>
 <!DOCTYPE html>
 <html lang="zh">
 <head>

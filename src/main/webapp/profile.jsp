@@ -165,7 +165,10 @@
         <div class="info-item">
             <label>姓名</label>
             <span id="display-name"><%= request.getSession(false).getAttribute("username") %></span>
-            <button onclick="openModal('name', '<%= request.getSession(false).getAttribute("username") %>')">修改</button>
+        </div>
+        <div class="info-item">
+            <label>身份证号</label>
+            <span id="display-idnumber"><%= request.getSession(false).getAttribute("useridnumber") %></span>
         </div>
         <div class="info-item">
             <label>手机号</label>
@@ -176,11 +179,6 @@
             <label>邮箱</label>
             <span id="display-email"><%= request.getSession(false).getAttribute("useremail") %></span>
             <button onclick="openModal('email', '<%= request.getSession(false).getAttribute("useremail") %>')">修改</button>
-        </div>
-        <div class="info-item">
-            <label>身份证号</label>
-            <span id="display-idnumber"><%= request.getSession(false).getAttribute("useridnumber") %></span>
-            <button onclick="openModal('idnumber', '<%= request.getSession(false).getAttribute("useridnumber") %>')">修改</button>
         </div>
         <div class="info-item">
             <label>密码</label>

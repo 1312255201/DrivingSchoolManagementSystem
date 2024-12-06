@@ -154,7 +154,7 @@
                   div.className = "student-item";
                   div.innerHTML = `
                                 <span>`+student.name+` (`+student.id+`)`+student.teach_level+`</span>
-                                <button class="btn btn-danger" onclick="removeStudent(`+student.id+`, `+coachId+`)">删除</button>
+                               <button class="btn btn-danger" onclick="removeStudent(` + student.id + `, ` + coachId + `, '` + student.teach_level + `')">删除</button>
                             `;
                   list.appendChild(div);
                 });
@@ -180,20 +180,20 @@
     })
             .then(response => response.text())
             .then(result => alert(result))
-            .then(() => loadStudents(coachId))
+            .then(() => loadStudents(coachId,teachlevel))
             .catch(err => console.error(err));
   }
 
-  function removeStudent(studentId, coachId) {
+  function removeStudent(studentId, coachId,teachlevel) {
     if (confirm("确定要删除这个学员吗？")) {
       fetch("RemoveStudentServlet", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `coach_id=` +coachId+ `&student_id=` + studentId
+        body: `coach_id=` +coachId+ `&student_id=` + studentId+`&teach_level=` + teachlevel
       })
               .then(response => response.text())
               .then(result => alert(result))
-              .then(() => loadStudents(coachId))
+              .then(() => loadStudents(coachId,teachlevel))
               .catch(err => console.error(err));
     }
   }

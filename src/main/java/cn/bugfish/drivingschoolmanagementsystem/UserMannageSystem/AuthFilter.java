@@ -22,7 +22,7 @@ public class AuthFilter implements Filter {
         // 获取当前访问路径
         String path = httpRequest.getRequestURI();
         // 不需要过滤的路径，例如登录页面和静态资源
-        if (path.endsWith("login.jsp") || path.endsWith("register.jsp") || path.endsWith("LoginServlet")
+        if (path.endsWith("login.jsp") || path.endsWith("index.jsp") || path.endsWith("register.jsp") || path.endsWith("LoginServlet")
                 || path.endsWith("RegisterServlet") || path.contains("/css/") || path.contains("/images/")
                 || path.contains("/js/")) {
             chain.doFilter(request, response); // 放行

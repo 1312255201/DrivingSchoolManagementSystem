@@ -203,6 +203,13 @@
             <input type="hidden" id="field" name="field">
             <label for="newValue">新值:</label>
             <input type="text" id="newValue" name="newValue" required>
+
+            <!-- 二次确认框 -->
+            <div id="confirmationSection" style="display: none; margin-top: 20px;">
+                <label for="confirmValue">确认信息:</label>
+                <input type="password" id="confirmValue" name="confirmValue" placeholder="请输入密码进行确认" required>
+            </div>
+
             <div class="form-actions">
                 <button type="button" onclick="submitEdit()">保存修改</button>
                 <button type="button" class="cancel-btn" onclick="closeModal()">取消</button>
@@ -210,6 +217,7 @@
         </form>
     </div>
 </div>
+
 <script src="js/profile.js"></script>
 
 </body>

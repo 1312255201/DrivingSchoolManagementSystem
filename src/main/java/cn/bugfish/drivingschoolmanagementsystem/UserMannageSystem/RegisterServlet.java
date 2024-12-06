@@ -19,13 +19,13 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 获取用户提交的数据
-        String username = request.getParameter("username");
+        String phonenumber = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
         // 简单验证
-        if (username == null || username.trim().isEmpty() ||
+        if (phonenumber == null || phonenumber.trim().isEmpty() ||
                 email == null || email.trim().isEmpty() ||
                 password == null || password.trim().isEmpty() ||
                 confirmPassword == null || confirmPassword.trim().isEmpty()) {
@@ -42,10 +42,10 @@ public class RegisterServlet extends HttpServlet {
         try {
             conn = DBUtil.getConnection();
             PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)"
+                    "INSERT INTO users (phonenumber, email, password) VALUES (?, ?, ?)"
             );
 
-            stmt.setString(1, username);
+            stmt.setString(1, phonenumber);
             stmt.setString(2, email);
             stmt.setString(3, password);
 

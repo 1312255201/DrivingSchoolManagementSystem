@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("useremail", rs.getString("email"));
                 if ( !rs.getString("idnumber").equals("请补全个人信息"))
                 {
-                    session.setAttribute("avatar", "avatars/"+ rs.getString("idnumber") + ".jpg");
+                    session.setAttribute("avatar", "avatars/"+ rs.getString("idnumber") + ".png");
                 }
                 response.sendRedirect("dashboard.jsp");
             } else {

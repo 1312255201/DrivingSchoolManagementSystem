@@ -119,11 +119,12 @@
             %>
             <a href="dashboard.jsp?section=studentinfo" class="<%= "studentinfo".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考证进度</a>
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
-            <a href="dashboard.jsp?section=schedule" class="<%= "schedule".equals(request.getParameter("section")) ? "active" : "" %>">我的日程</a>
+            <a href="dashboard.jsp?section=student_time" class="<%= "student_time".equals(request.getParameter("section")) ? "active" : "" %>">预约练车</a>
             <%
             } else if ("coach".equals(userRole)) {
             %>
             <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">我的学员</a>
+            <a href="dashboard.jsp?section=coach-time" class="<%= "coach-time".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">预约管理</a>
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=schedule" class="<%= "schedule".equals(request.getParameter("section")) ? "active" : "" %>">我的课程表</a>
             <%
@@ -153,6 +154,10 @@
     %><jsp:include page="assign-student.jsp" /> <%
     }else if ("studentinfo".equals(section)) {
     %><jsp:include page="studentinfo.jsp" /> <%
+    }else if ("student_time".equals(section)) {
+    %><jsp:include page="student_time.jsp" /> <%
+    }else if ("coach-time".equals(section)) {
+    %><jsp:include page="coach-time.jsp" /> <%
     }else {
     %><jsp:include page="home.jsp" /> <%
         }

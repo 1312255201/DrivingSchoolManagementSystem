@@ -74,7 +74,7 @@
 <div class="form-container">
   <div class="form-group">
     <label for="coach">选择教练：</label>
-    <select id="coach" name="coach_id" onchange="loadStudents(this.value)">
+    <select id="coach" name="coach_id" onchange="loadStudents(this.value,document.getElementById('teachlevel').value)">
       <option value="">请选择教练</option>
       <%
         try {
@@ -90,6 +90,17 @@
           e.printStackTrace();
         }
       %>
+    </select>
+    <select id="teachlevel" name="teach_level" onchange="loadStudents(document.getElementById('coach').value,this.value)" >
+        <option value="">请选择科目</option>
+        <%
+          try {
+            out.println("<option value='" + "科目二"+ "'>" + "科目二" + "</option>");
+            out.println("<option value='" + "科目三" + "'>" + "科目三" + "</option>");
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        %>
     </select>
   </div>
   <div id="student-section">
@@ -121,12 +132,16 @@
 </div>
 
 <script>
-  function loadStudents(coachId) {
+  function loadStudents(coachId,teach_level) {
     if (!coachId) {
       document.getElementById("student-list").innerHTML = "请选择教练以加载学员列表";
       return;
     }
-    fetch(`GetStudentsServlet?coach_id=` + coachId)
+    if (!teach_level) {
+      document.getElementById("student-list").innerHTML = "请选择科目来加载学生列表";
+      return;
+    }
+    fetch(`GetStudentsServlet?coach_id=` + coachId+`&teach_level=` + teach_level)
             .then(response => response.json())
             .then(data => {
               const list = document.getElementById("student-list");
@@ -138,7 +153,7 @@
                   const div = document.createElement("div");
                   div.className = "student-item";
                   div.innerHTML = `
-                                <span>`+student.name+` (`+student.id+`)</span>
+                                <span>`+student.name+` (`+student.id+`)`+student.teach_level+`</span>
                                 <button class="btn btn-danger" onclick="removeStudent(`+student.id+`, `+coachId+`)">删除</button>
                             `;
                   list.appendChild(div);
@@ -151,6 +166,7 @@
   function assignStudent() {
     const coachId = document.getElementById("coach").value;
     const studentId = document.getElementById("new-student").value;
+    const teachlevel = document.getElementById("teachlevel").value;
 
     if (!coachId || !studentId) {
       alert("请确保选择了教练和学员！");
@@ -160,7 +176,7 @@
     fetch("AssignStudentServletChange", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `coach_id=` +coachId+ `&student_id=` + studentId
+      body: `coach_id=` +coachId+ `&student_id=` + studentId + `&teach_level=` + teachlevel
     })
             .then(response => response.text())
             .then(result => alert(result))

@@ -20,11 +20,15 @@
             font-family: Arial, sans-serif;
             background-color: #f3f4f6;
             color: #333;
+            display: flex;
+            min-height: 100vh; /* 使页面高度至少等于视口高度 */
+            overflow: hidden; /* 禁止 body 出现滚动条 */
         }
 
         .dashboard {
             display: flex;
-            height: 100vh;
+            flex: 1; /* 使 dashboard 占满视口 */
+            overflow: hidden; /* 避免内部滚动条干扰 */
         }
 
         .sidebar {
@@ -36,6 +40,10 @@
             justify-content: space-between;
             padding: 10px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: sticky; /* 固定 sidebar */
+            top: 0; /* 从顶部开始固定 */
+            height: 100vh; /* 高度占满整个视口 */
+            overflow-y: auto; /* 若内容过多，则 sidebar 内部可以滚动 */
         }
 
         .sidebar h2 {
@@ -79,9 +87,13 @@
         }
 
         .content {
-            flex-grow: 1;
+            flex-grow: 1; /* 占用剩余空间 */
             padding: 20px;
             background-color: #fff;
+            overflow-y: auto; /* 启用垂直滚动 */
+            height: 100vh; /* 高度等于视口 */
+            box-sizing: border-box; /* 包含 padding */
+
         }
     </style>
 </head>
@@ -105,7 +117,7 @@
             <%
             } else if ("user".equals(userRole)) {
             %>
-            <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">我的课程</a>
+            <a href="dashboard.jsp?section=studentinfo" class="<%= "studentinfo".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考证进度</a>
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=schedule" class="<%= "schedule".equals(request.getParameter("section")) ? "active" : "" %>">我的日程</a>
             <%
@@ -139,6 +151,8 @@
     %><jsp:include page="user-management.jsp" /> <%
     }else if ("assignstudent".equals(section)) {
     %><jsp:include page="assign-student.jsp" /> <%
+    }else if ("studentinfo".equals(section)) {
+    %><jsp:include page="studentinfo.jsp" /> <%
     }else {
     %><jsp:include page="home.jsp" /> <%
         }

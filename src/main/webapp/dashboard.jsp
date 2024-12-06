@@ -100,7 +100,7 @@
             <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">概览</a>
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=usermanage" class="<%= "usermanage".equals(request.getParameter("section")) ? "active" : "" %>">用户管理</a>
-            <a href="dashboard.jsp?section=instructors" class="<%= "instructors".equals(request.getParameter("section")) ? "active" : "" %>">教练管理</a>
+            <a href="dashboard.jsp?section=assignstudent" class="<%= "assignstudent".equals(request.getParameter("section")) ? "active" : "" %>">学员分配</a>
             <a href="dashboard.jsp?section=settings" class="<%= "settings".equals(request.getParameter("section")) ? "active" : "" %>">系统设置</a>
             <%
             } else if ("user".equals(userRole)) {
@@ -137,6 +137,8 @@
     %><jsp:include page="profile.jsp" /> <%
     }else if ("usermanage".equals(section)) {
     %><jsp:include page="user-management.jsp" /> <%
+    }else if ("assignstudent".equals(section)) {
+    %><jsp:include page="assign-student.jsp" /> <%
     }else {
     %><jsp:include page="home.jsp" /> <%
         }

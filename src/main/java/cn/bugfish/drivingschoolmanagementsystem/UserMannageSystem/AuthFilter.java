@@ -28,7 +28,10 @@ public class AuthFilter implements Filter {
             chain.doFilter(request, response); // 放行
             return;
         }
-
+        if (path.endsWith("AssignStudentServletChange") || path.endsWith("GetStudentsServlet") || path.endsWith("RemoveStudentServlet")) {
+            chain.doFilter(request, response);
+            return;
+        }
         // 判断用户是否登录
         Object user = httpRequest.getSession().getAttribute("userid");
         if (user == null) {

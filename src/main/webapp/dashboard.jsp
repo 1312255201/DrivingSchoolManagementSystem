@@ -119,7 +119,7 @@
             %>
             <a href="dashboard.jsp?section=studentinfo" class="<%= "studentinfo".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考证进度</a>
             <a href="dashboard.jsp?section=profile" class="<%= "profile".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
-            <a href="dashboard.jsp?section=student_select_lessen" class="<%= "student_select_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
+            <a href="dashboard.jsp?section=student_select_lessen" class="<%= "student_select_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">学生选课</a>
             <a href="dashboard.jsp?section=student_time" class="<%= "student_time".equals(request.getParameter("section")) ? "active" : "" %>">预约练车</a>
             <%
             } else if ("coach".equals(userRole)) {

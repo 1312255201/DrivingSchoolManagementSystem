@@ -21,7 +21,7 @@ public class FinishInfoFilter implements Filter {
         HttpSession session = httpRequest.getSession();
         String path = httpRequest.getRequestURI();
         if (path.endsWith("login.jsp") || path.endsWith("index.jsp") || path.endsWith("register.jsp") || path.endsWith("LoginServlet")
-                || path.endsWith("RegisterServlet") || path.contains("/css/") || path.contains("/images/")
+                || path.endsWith("RegisterServlet") || path.contains("/css/") || path.contains("/img/")
                 || path.contains("/js/")) {
             chain.doFilter(request, response); // 放行
             return;

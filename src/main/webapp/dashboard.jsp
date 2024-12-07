@@ -123,7 +123,7 @@
             <%
             } else if ("coach".equals(userRole)) {
             %>
-            <a href="dashboard.jsp?section=home" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">我的学员</a>
+            <a href="dashboard.jsp?section=mystudent" class="<%= "mystudent".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">我的学员</a>
             <a href="dashboard.jsp?section=coach-time" class="<%= "coach-time".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">预约管理</a>
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=schedule" class="<%= "schedule".equals(request.getParameter("section")) ? "active" : "" %>">我的课程表</a>
@@ -156,6 +156,8 @@
     %><jsp:include page="studentinfo.jsp" /> <%
     }else if ("student_time".equals(section)) {
     %><jsp:include page="student_time.jsp" /> <%
+    }else if ("mystudent".equals(section)) {
+    %><jsp:include page="mystudent.jsp" /> <%
     }else if ("coach-time".equals(section)) {
     %><jsp:include page="coach-time.jsp" /> <%
     }else {

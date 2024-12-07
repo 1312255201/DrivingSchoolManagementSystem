@@ -62,13 +62,12 @@
 
         <label for="course-name">课程名称:</label>
         <input type="text" id="course-name" name="name" required>
-
+        <br>
         <label for="start-time">选课开始时间:</label>
         <input type="datetime-local" id="start-time" name="start_time" required>
-        <br>
         <label for="end-time">选课结束时间:</label>
         <input type="datetime-local" id="end-time" name="end_time" required>
-
+        <br>
         <label for="capacity">可容纳人数:</label>
         <input type="number" id="capacity" name="capacity" required>
 

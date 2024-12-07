@@ -28,7 +28,6 @@ public class CaptchaServlet extends HttpServlet {
         g.setColor(new Color(230, 230, 230));
         g.fillRect(0, 0, width, height);
 
-        // 绘制干扰线
         for (int i = 0; i < 5; i++) {
             g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
             int x1 = random.nextInt(width);
@@ -38,7 +37,6 @@ public class CaptchaServlet extends HttpServlet {
             g.drawLine(x1, y1, x2, y2);
         }
 
-        // 生成随机验证码
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder captcha = new StringBuilder();
         for (int i = 0; i < 4; i++) {
@@ -49,7 +47,6 @@ public class CaptchaServlet extends HttpServlet {
             g.drawString(String.valueOf(c), 20 * i + 10, 30);
         }
 
-        // 将验证码存储到会话中
         HttpSession session = request.getSession();
         session.setAttribute("captcha", captcha.toString());
         ImageIO.setUseCache(false);

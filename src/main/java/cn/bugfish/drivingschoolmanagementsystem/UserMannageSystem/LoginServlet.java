@@ -57,6 +57,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", rs.getString("name"));
                 session.setAttribute("useridnumber", rs.getString("idnumber"));
                 session.setAttribute("useremail", rs.getString("email"));
+                session.setAttribute("userphonenumber", rs.getString("phonenumber"));
                 if ( !rs.getString("idnumber").equals("请补全个人信息"))
                 {
                     session.setAttribute("avatar", "avatars/"+ rs.getString("idnumber") + ".png");

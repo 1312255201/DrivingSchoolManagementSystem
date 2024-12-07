@@ -97,7 +97,9 @@
         <input type="hidden" name="id" value="<%= id %>">
         <button class="reset-btn" type="submit">重置密码</button>
       </form>
-      <button class="delete-btn" onclick="confirmDelete(<%= id %>, '<%= name %>')">删除</button>
+      <form style="display:inline;" onsubmit="confirmDelete(<%= id %>);">
+        <button class="delete-btn" type="submit">删除</button>
+      </form>
     </td>
   </tr>
   <%
@@ -148,30 +150,7 @@
   </form>
 </div>
 
-<script>
-  function openEditModal(id, name, idnumber, phonenumber, email, role) {
-    document.getElementById('userId').value = id;
-    document.getElementById('userName').value = name;
-    document.getElementById('userIdNumber').value = idnumber;
-    document.getElementById('userPhoneNumber').value = phonenumber;
-    document.getElementById('userEmail').value = email;
-    document.getElementById('userRole').value = role;
-    document.getElementById('editModal').style.display = 'block';
-  }
+<script src="js/usermanage.js"></script>
 
-  function closeEditModal() {
-    document.getElementById('editModal').style.display = 'none';
-  }
-
-  function confirmDelete(id, name) {
-    document.getElementById('deleteUserId').value = id;
-    document.getElementById('deleteUserName').innerText = name;
-    document.getElementById('deleteModal').style.display = 'block';
-  }
-
-  function closeDeleteModal() {
-    document.getElementById('deleteModal').style.display = 'none';
-  }
-</script>
 </body>
 </html>

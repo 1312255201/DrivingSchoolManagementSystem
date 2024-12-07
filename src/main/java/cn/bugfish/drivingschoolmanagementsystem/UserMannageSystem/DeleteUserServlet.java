@@ -26,10 +26,11 @@ public class DeleteUserServlet extends HttpServlet {
             conn = DBUtil.getConnection();
 
             // 验证管理员密码
-            String adminId = (String) request.getSession().getAttribute("userid"); // 从会话中获取管理员ID
+            int adminid = (int) request.getSession().getAttribute("userid"); // 教练ID从会话中获取
+
             String verifyPasswordSql = "SELECT password FROM users WHERE id = ? AND role = 'admin'";
             try (PreparedStatement psVerify = conn.prepareStatement(verifyPasswordSql)) {
-                psVerify.setString(1, adminId);
+                psVerify.setInt(1, adminid);
                 try (ResultSet rsVerify = psVerify.executeQuery()) {
                     if (rsVerify.next()) {
                         String storedPassword = rsVerify.getString("password");

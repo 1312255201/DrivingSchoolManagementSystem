@@ -20,14 +20,23 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 获取表单数据
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String captcha = request.getParameter("captcha");
 
         // 验证输入是否为空
         if (username == null || username.trim().isEmpty() ||
-                password == null || password.trim().isEmpty()) {
+                password == null || password.trim().isEmpty() ||
+                captcha == null || captcha.trim().isEmpty()) {
             response.sendRedirect("login.jsp?error=emptyFields");
+            return;
+        }
+
+        // 验证验证码
+        HttpSession session = request.getSession();
+        String sessionCaptcha = (String) session.getAttribute("captcha");
+        if (sessionCaptcha == null || !sessionCaptcha.equalsIgnoreCase(captcha)) {
+            response.sendRedirect("login.jsp?error=invalidCaptcha");
             return;
         }
 
@@ -36,31 +45,20 @@ public class LoginServlet extends HttpServlet {
             conn = DBUtil.getConnection();
             String query = "SELECT * FROM users WHERE phonenumber = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-
             stmt.setString(1, username);
             stmt.setString(2, password);
 
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // 登录成功，创建会话
-                HttpSession session = request.getSession();
+                session = request.getSession();
                 session.setAttribute("userid", rs.getInt("id"));
                 session.setAttribute("userrole", rs.getString("role"));
                 session.setAttribute("username", rs.getString("name"));
-                session.setAttribute("useridnumber", rs.getString("idnumber"));
-                session.setAttribute("userphonenumber", rs.getString("phonenumber"));
-                session.setAttribute("useremail", rs.getString("email"));
-                if ( !rs.getString("idnumber").equals("请补全个人信息"))
-                {
-                    session.setAttribute("avatar", "avatars/"+ rs.getString("idnumber") + ".png");
-                }
                 response.sendRedirect("dashboard.jsp");
             } else {
-                // 登录失败，重定向到登录页面并显示错误信息
                 response.sendRedirect("login.jsp?error=invalidCredentials");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("login.jsp?error=databaseError");
@@ -68,4 +66,5 @@ public class LoginServlet extends HttpServlet {
             DBUtil.closeConnection(conn);
         }
     }
+
 }

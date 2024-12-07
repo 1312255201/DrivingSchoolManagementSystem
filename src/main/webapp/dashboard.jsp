@@ -113,7 +113,7 @@
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=usermanage" class="<%= "usermanage".equals(request.getParameter("section")) ? "active" : "" %>">用户管理</a>
             <a href="dashboard.jsp?section=assignstudent" class="<%= "assignstudent".equals(request.getParameter("section")) ? "active" : "" %>">学员分配</a>
-            <a href="dashboard.jsp?section=settings" class="<%= "settings".equals(request.getParameter("section")) ? "active" : "" %>">系统设置</a>
+            <a href="dashboard.jsp?section=review-leave-requests" class="<%= "review-leave-requests".equals(request.getParameter("section")) ? "active" : "" %>">请假管理</a>
             <%
             } else if ("user".equals(userRole)) {
             %>
@@ -128,6 +128,7 @@
             <a href="dashboard.jsp?section=coach-time" class="<%= "coach-time".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">预约管理</a>
             <a href="dashboard.jsp?section=profile" class="<%= "profile".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=coach_lessen" class="<%= "coach_lessen".equals(request.getParameter("section")) ? "active" : "" %>">我的课程</a>
+            <a href="dashboard.jsp?section=leave-requests" class="<%= "leave-requests".equals(request.getParameter("section")) ? "active" : "" %>">请假管理</a>
             <%
                 } else {
                     response.sendRedirect("login.jsp"); // 未登录或角色不明确时跳转到登录页面
@@ -165,6 +166,10 @@
     %><jsp:include page="student_select_lessen.jsp" /> <%
     }else if ("coach_lessen".equals(section)) {
     %><jsp:include page="coach_lessen.jsp" /> <%
+    }else if ("leave-requests".equals(section)) {
+    %><jsp:include page="leave-requests.jsp" /> <%
+    }else if ("review-leave-requests".equals(section)) {
+    %><jsp:include page="review-leave-requests.jsp" /> <%
     }else {
     %><jsp:include page="home.jsp" /> <%
         }

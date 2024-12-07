@@ -55,6 +55,12 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("userid", rs.getInt("id"));
                 session.setAttribute("userrole", rs.getString("role"));
                 session.setAttribute("username", rs.getString("name"));
+                session.setAttribute("useridnumber", rs.getString("idnumber"));
+                session.setAttribute("useremail", rs.getString("email"));
+                if ( !rs.getString("idnumber").equals("请补全个人信息"))
+                {
+                    session.setAttribute("avatar", "avatars/"+ rs.getString("idnumber") + ".png");
+                }
                 response.sendRedirect("dashboard.jsp");
             } else {
                 response.sendRedirect("login.jsp?error=invalidCredentials");

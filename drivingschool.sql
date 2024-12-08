@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26-log)
  File Encoding         : 65001
 
- Date: 09/12/2024 01:51:15
+ Date: 09/12/2024 03:03:01
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `appointment`  (
   `schedule_id` int(11) NOT NULL COMMENT '预约时间的唯一标识id',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `student_schedule`(`student_id`, `schedule_id`) USING BTREE COMMENT '将studentid 和scheduleid 一起作为唯一索引，可以确保不会插入相同预约信息到数据库，将操作给数据库，减少后端代码。'
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用于记录预约对应关系表\r\n表设计人，软件22-7王赟昊' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用于记录预约对应关系表\r\n表设计人，软件22-7王赟昊' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for course_selection
@@ -43,7 +43,7 @@ CREATE TABLE `course_selection`  (
   INDEX `fk_course`(`course_id`) USING BTREE,
   CONSTRAINT `fk_course` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_student` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生选课记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生选课记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for courses
@@ -61,7 +61,7 @@ CREATE TABLE `courses`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coach_id`(`coach_id`) USING BTREE,
   CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for email_config
@@ -75,7 +75,7 @@ CREATE TABLE `email_config`  (
   `smtp_port` int(11) NOT NULL DEFAULT 465 COMMENT 'smtp服务器端口',
   `is_ssl_enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否开启ssl安全验证',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表设计人软件22-7班王赟昊\r\n用于存储发送重置邮件的stmp授权密码，以及邮箱' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表设计人软件22-7班王赟昊\r\n用于存储发送重置邮件的stmp授权密码，以及邮箱' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for exam_selection
@@ -91,7 +91,7 @@ CREATE TABLE `exam_selection`  (
   INDEX `fk_course`(`course_id`) USING BTREE,
   CONSTRAINT `exam_selection_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_selection_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生考试记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生考试记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for exams
@@ -109,7 +109,7 @@ CREATE TABLE `exams`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coach_id`(`coach_id`) USING BTREE,
   CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考试白哦' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考试白哦' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for fees
@@ -146,7 +146,7 @@ CREATE TABLE `leave_requests`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coach_id`(`coach_id`) USING BTREE,
   CONSTRAINT `leave_requests_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '请假记录表，用于记录教练请假信息\r\n表设计人-软件22-7王赟昊' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '请假记录表，用于记录教练请假信息\r\n表设计人-软件22-7王赟昊' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -161,7 +161,7 @@ CREATE TABLE `password_resets`  (
   UNIQUE INDEX `token`(`token`) USING BTREE COMMENT '加速查找tocken，确保tocken不一致，使用BTREE实现唯一索引',
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表设计人软件22-7王赟昊\r\n用于密码遗忘重置的tocken存储' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表设计人软件22-7王赟昊\r\n用于密码遗忘重置的tocken存储' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for payment_records
@@ -209,7 +209,7 @@ CREATE TABLE `schedule`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coach_id`(`coach_id`) USING BTREE,
   CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for student_sorce
@@ -221,7 +221,7 @@ CREATE TABLE `student_sorce`  (
   `test_name` enum('科目一','科目二','科目三','科目四') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '科目一',
   `grade` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for student_state
@@ -235,7 +235,7 @@ CREATE TABLE `student_state`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `student_id`(`student_id`) USING BTREE,
   CONSTRAINT `student_id` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用于记录学员的报名情况，和考试通过情况表\r\n表设计人软件22-7王赟昊' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用于记录学员的报名情况，和考试通过情况表\r\n表设计人软件22-7王赟昊' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for students
@@ -269,7 +269,7 @@ CREATE TABLE `teach_info`  (
   INDEX `student_id`(`student_id`) USING BTREE,
   CONSTRAINT `teach_info_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `teach_info_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for users
@@ -289,6 +289,6 @@ CREATE TABLE `users`  (
   UNIQUE INDEX `phonenumber`(`phonenumber`) USING BTREE COMMENT '用于确保没有两个人电话一样，顺便加速查询速度，使用BTREE实现唯一索引',
   UNIQUE INDEX `email`(`email`) USING BTREE COMMENT '用于确保没有两个人邮箱一样，顺便加速查询速度，使用BTREE实现唯一索引',
   UNIQUE INDEX `idnumber`(`idnumber`) USING BTREE COMMENT '用于确保没有两个人身份证号一样，顺便加速查询速度，使用BTREE实现唯一索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设计者22-7 王赟昊，项目全部用户储存所在的表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设计者22-7 王赟昊，项目全部用户储存所在的表' ROW_FORMAT = DYNAMIC;
 
 SET FOREIGN_KEY_CHECKS = 1;

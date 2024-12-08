@@ -2,6 +2,7 @@ package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
 import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Listener.UserEditListener;
+import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Loger.UserMannageSystemLoger;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ public class DeleteUserServlet extends HttpServlet {
         ResultSet rs = null;
 
         try {
+            // 获取数据库连接
             conn = DBUtil.getConnection();
 
             // 验证管理员密码
@@ -36,11 +38,13 @@ public class DeleteUserServlet extends HttpServlet {
                     if (rsVerify.next()) {
                         String storedPassword = rsVerify.getString("password");
                         if (!storedPassword.equals(adminPassword)) {
+                            // 管理员密码错误，返回错误信息
                             response.setContentType("application/json");
                             response.getWriter().write("{\"success\": false, \"message\": \"管理员密码错误！\"}");
                             return;
                         }
                     } else {
+                        // 管理员身份验证失败，返回错误信息
                         response.setContentType("application/json");
                         response.getWriter().write("{\"success\": false, \"message\": \"管理员身份验证失败！\"}");
                         UserEditListener.logger.info("删除用户失败，管理员账户错误！！！！");
@@ -56,24 +60,30 @@ public class DeleteUserServlet extends HttpServlet {
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
+                // 用户删除成功，返回成功信息
                 response.setContentType("application/json");
                 response.getWriter().write("{\"success\": true, \"message\": \"用户删除成功！\"}");
             } else {
+                // 用户删除失败，返回错误信息
                 response.setContentType("application/json");
                 response.getWriter().write("{\"success\": false, \"message\": \"用户删除失败，请重试！\"}");
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // 打印异常堆栈跟踪
+            UserMannageSystemLoger.logger.error(e.getStackTrace());
+            // 返回服务器错误信息
             response.setContentType("application/json");
             response.getWriter().write("{\"success\": false, \"message\": \"服务器错误，请稍后重试！\"}");
         } finally {
             try {
+                // 关闭结果集、语句和连接
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
                 if (conn != null) conn.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                // 打印异常堆栈跟踪
+                UserMannageSystemLoger.logger.error(e.getStackTrace());
             }
         }
     }

@@ -2,6 +2,7 @@ package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
 import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.DAO.EmailConfigDAO;
+import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Loger.UserMannageSystemLoger;
 import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Model.EmailConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +20,9 @@ import javax.mail.internet.*;
 public class ForgotPasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 获取用户提交的邮箱
         String email = request.getParameter("email");
+        // 设置响应的内容类型为 JSON，并设置字符编码为 UTF-8
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
@@ -30,6 +33,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                 ps.setString(1, email);
                 var rs = ps.executeQuery();
                 if (!rs.next()) {
+                    // 如果用户不存在，返回错误信息
                     response.getWriter().write("{\"success\": false, \"message\": \"邮箱未注册！\"}");
                     return;
                 }
@@ -49,10 +53,13 @@ public class ForgotPasswordServlet extends HttpServlet {
 
                 // 发送邮件
                 sendEmail(email, resetLink);
+                // 返回成功信息
                 response.getWriter().write("{\"success\": true, \"message\": \"重置链接已发送，请查收邮箱！\"}");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            // 打印异常堆栈跟踪
+            UserMannageSystemLoger.logger.error(e.getStackTrace());
+            // 返回服务器错误信息
             response.getWriter().write("{\"success\": false, \"message\": \"服务器错误，请稍后再试！\"}");
         }
     }

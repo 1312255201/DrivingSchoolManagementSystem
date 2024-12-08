@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26-log)
  File Encoding         : 65001
 
- Date: 09/12/2024 01:36:23
+ Date: 09/12/2024 01:51:15
 */
 
 SET NAMES utf8mb4;
@@ -23,14 +23,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `appointment`;
 CREATE TABLE `appointment`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `student_id` int(11) NOT NULL,
-  `schedule_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL COMMENT '学生id\r\n',
+  `schedule_id` int(11) NOT NULL COMMENT '预约时间的唯一标识id',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `student_id`(`student_id`) USING BTREE,
-  INDEX `schedule_id`(`schedule_id`) USING BTREE,
-  CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `appointment_ibfk_2` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `student_schedule`(`student_id`, `schedule_id`) USING BTREE COMMENT '将studentid 和scheduleid 一起作为唯一索引，可以确保不会插入相同预约信息到数据库，将操作给数据库，减少后端代码。'
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用于记录预约对应关系表\r\n表设计人，软件22-7王赟昊' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for course_selection
@@ -71,14 +68,14 @@ CREATE TABLE `courses`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `email_config`;
 CREATE TABLE `email_config`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `smtp_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'smtp.qq.com',
-  `smtp_port` int(11) NOT NULL DEFAULT 465,
-  `is_ssl_enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '唯一标识，主键',
+  `email_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '发送邮箱地址',
+  `email_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱的验证码',
+  `smtp_host` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'smtp.qq.com' COMMENT 'smtp服务器地址',
+  `smtp_port` int(11) NOT NULL DEFAULT 465 COMMENT 'smtp服务器端口',
+  `is_ssl_enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否开启ssl安全验证',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表设计人软件22-7班王赟昊\r\n用于存储发送重置邮件的stmp授权密码，以及邮箱' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for exam_selection
@@ -149,20 +146,22 @@ CREATE TABLE `leave_requests`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coach_id`(`coach_id`) USING BTREE,
   CONSTRAINT `leave_requests_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '请假记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '请假记录表，用于记录教练请假信息\r\n表设计人-软件22-7王赟昊' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for password_resets
 -- ----------------------------
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '唯一标识，主键，用于标识数据行',
+  `user_id` int(11) NOT NULL COMMENT '用户id，标识这条重置链接重置的用户',
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '重置链接后随机生成的校验',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '重置链接创建时间，用于确定链接的过期时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `token`(`token`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `token`(`token`) USING BTREE COMMENT '加速查找tocken，确保tocken不一致，使用BTREE实现唯一索引',
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表设计人软件22-7王赟昊\r\n用于密码遗忘重置的tocken存储' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for payment_records
@@ -236,7 +235,7 @@ CREATE TABLE `student_state`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `student_id`(`student_id`) USING BTREE,
   CONSTRAINT `student_id` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用于记录学员的报名情况，和考试通过情况表\r\n表设计人软件22-7王赟昊' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for students
@@ -277,19 +276,19 @@ CREATE TABLE `teach_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role` enum('user','coach','admin') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'user',
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '请补全个人信息',
-  `idnumber` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '请补全个人信息',
-  `phonenumber` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `finish_info` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id，用于唯一表名用户id',
+  `role` enum('user','coach','admin') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'user' COMMENT '用户角色，枚举类型，user学员coach教练admin管理员',
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '请补全个人信息' COMMENT '实名认证信息，本人真名',
+  `idnumber` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '请补全个人信息' COMMENT '实名认证信息，身份证号',
+  `phonenumber` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '手机号',
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱地址，绑定账号，用于找回',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码，加密存储',
+  `finish_info` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'no' COMMENT '是否完成实名认证标识',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建账户时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `phonenumber`(`phonenumber`) USING BTREE,
-  UNIQUE INDEX `email`(`email`) USING BTREE,
-  UNIQUE INDEX `idnumber`(`idnumber`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `phonenumber`(`phonenumber`) USING BTREE COMMENT '用于确保没有两个人电话一样，顺便加速查询速度，使用BTREE实现唯一索引',
+  UNIQUE INDEX `email`(`email`) USING BTREE COMMENT '用于确保没有两个人邮箱一样，顺便加速查询速度，使用BTREE实现唯一索引',
+  UNIQUE INDEX `idnumber`(`idnumber`) USING BTREE COMMENT '用于确保没有两个人身份证号一样，顺便加速查询速度，使用BTREE实现唯一索引'
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设计者22-7 王赟昊，项目全部用户储存所在的表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

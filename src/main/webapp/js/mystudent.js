@@ -21,7 +21,7 @@ function loadStudents() {
                 tbody.appendChild(row);
             });
         })
-        .catch(err => console.error("Failed to fetch student data", err));
+        .catch(err => console.error("数据加载失败", err));
 }
 
 // 页面加载时初始化

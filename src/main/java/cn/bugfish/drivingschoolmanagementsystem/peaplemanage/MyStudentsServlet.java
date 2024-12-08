@@ -41,10 +41,11 @@ public class MyStudentsServlet extends HttpServlet {
 
             // 根据筛选条件调整查询
             if ("in-progress".equals(filter)) {
-                sql += " AND ss.state IN ('科目二', '科目三')";
+                sql += " AND ((t.teach_level = '科目二' AND ss.state IN ('新学员','科目一'))" +
+                        " OR (t.teach_level = '科目三' AND ss.state IN ('新学员','科目一','科目二')))";
             } else if ("passed".equals(filter)) {
-                sql += " AND ((t.teach_level = '科目二' AND ss.state NOT IN ('科目二'))" +
-                        " OR (t.teach_level = '科目三' AND ss.state NOT IN ('科目三')))";
+                sql += " AND ((t.teach_level = '科目二' AND ss.state NOT IN ('新学员','科目一'))" +
+                        " OR (t.teach_level = '科目三' AND ss.state NOT IN ('新学员','科目一','科目二')))";
             }
 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -59,9 +60,9 @@ public class MyStudentsServlet extends HttpServlet {
                         student.put("state", rs.getString("state"));
 
                         // 添加备注信息
-                        if ("科目二".equals(rs.getString("teach_level")) && !rs.getString("state").equals("科目二")) {
+                        if ("科目二".equals(rs.getString("teach_level")) && !rs.getString("state").equals("科目一")&& !rs.getString("state").equals("新学员")) {
                             student.put("remark", "已通过");
-                        } else if ("科目三".equals(rs.getString("teach_level")) && !rs.getString("state").equals("科目三")) {
+                        } else if ("科目三".equals(rs.getString("teach_level")) && !rs.getString("state").equals("科目二") && !rs.getString("state").equals("科目一")&& !rs.getString("state").equals("新学员")) {
                             student.put("remark", "已通过");
                         } else {
                             student.put("remark", "正在学习");

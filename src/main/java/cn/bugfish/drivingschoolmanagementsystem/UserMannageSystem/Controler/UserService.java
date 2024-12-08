@@ -20,7 +20,6 @@ public class UserService {
             stmt.setString(3, hashedPassword);
             return stmt.executeUpdate() > 0;
         } finally {
-            DBUtil.closeConnection(conn);
         }
     }
 }

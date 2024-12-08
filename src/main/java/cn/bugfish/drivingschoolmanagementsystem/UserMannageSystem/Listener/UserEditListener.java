@@ -11,7 +11,10 @@ import java.util.logging.Logger;
 public class UserEditListener implements ServletRequestListener {
 
     public static final Logger logger = Logger.getLogger(UserEditListener.class.getName());
-
+    /**
+     * 请求初始化时调用的方法
+     * @param sre 请求事件对象
+     */
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
         HttpServletRequest httpRequest = (HttpServletRequest) sre.getServletRequest();
@@ -40,7 +43,10 @@ public class UserEditListener implements ServletRequestListener {
             logger.info("删除用户 操作的管理员" +userid+"删除的用户:"+id);
         }
     }
-
+    /**
+     * 请求初始化时调用的方法
+     * @param sre 请求事件对象
+     */
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
         HttpServletRequest httpRequest = (HttpServletRequest) sre.getServletRequest();

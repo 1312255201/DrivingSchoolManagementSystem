@@ -75,8 +75,12 @@
   <label for="end-date">结束时间:</label>
   <input type="date" id="end-date">
 
+  <label for="evidence">佐证文件:</label>
+  <input type="file" id="evidence">
+
   <button class="submit-btn" onclick="submitLeaveRequest()">提交申请</button>
 </div>
+
 
 <h2>我的请假记录</h2>
 <table>

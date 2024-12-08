@@ -45,7 +45,16 @@ public class LoginServlet extends HttpServlet {
         Connection conn = null;
         try {
             conn = DBUtil.getConnection();
-            String query = "SELECT * FROM users WHERE phonenumber = ?";
+            String query;
+            if (username.contains("@")){
+                query = "SELECT * FROM users WHERE email = ?";
+            }else if(username.length() == 18)
+            {
+                query = "SELECT * FROM users WHERE idnumber = ?";
+            }
+            else{
+                query = "SELECT * FROM users WHERE phonenumber = ?";
+            }
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
 

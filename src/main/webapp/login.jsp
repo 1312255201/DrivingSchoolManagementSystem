@@ -122,8 +122,8 @@
     %>
 
     <form action="LoginServlet" method="post">
-        <label for="username">手机号</label>
-        <input type="text" id="username" name="username" placeholder="请输入手机号" required>
+        <label for="username">账号(手机号/邮箱/身份证)</label>
+        <input type="text" id="username" name="username" placeholder="手机号/邮箱/身份证" required>
 
         <label for="password">密码</label>
         <input type="password" id="password" name="password" placeholder="请输入密码" required>

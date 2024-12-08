@@ -4,7 +4,6 @@ import jakarta.servlet.ServletRequestEvent;
 import jakarta.servlet.ServletRequestListener;
 import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.logging.log4j.LogManager;
 
 import java.util.logging.Logger;
 
@@ -17,10 +16,8 @@ public class UserEditListener implements ServletRequestListener {
     public void requestInitialized(ServletRequestEvent sre) {
         // 将 ServletRequest 转换为 HttpServletRequest
         HttpServletRequest httpRequest = (HttpServletRequest) sre.getServletRequest();
-
         // 获取请求路径
         String servletPath = httpRequest.getServletPath();
-
         if ("/EditUserServlet".equals(servletPath)) {
             ((HttpServletRequest) sre.getServletRequest()).getSession().getAttribute("userid");
             String id = httpRequest.getParameter("id");

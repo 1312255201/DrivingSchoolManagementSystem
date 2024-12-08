@@ -1,7 +1,7 @@
-package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
-import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.UserDao;
+import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
 @WebServlet("/EditProfileServlet")
 public class EditProfileServlet extends HttpServlet {

@@ -1,4 +1,4 @@
-package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Listener;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -8,6 +8,11 @@ import jakarta.servlet.http.HttpSessionListener;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+/**
+ * 用户管理监听器，用于监听用户会话的创建和销毁事件
+ * 并且记录系统日志
+ */
 
 @WebListener
 public class UserManagementListener implements ServletContextListener, HttpSessionListener {

@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * 数据库连接工具类
+ */
+
 public class DBUtil {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/drivingschool?useSSL=false&characterEncoding=utf8";
     private static final String JDBC_USER = "drivingschool";

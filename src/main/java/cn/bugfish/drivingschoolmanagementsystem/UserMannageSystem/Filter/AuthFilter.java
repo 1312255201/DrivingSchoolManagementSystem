@@ -1,10 +1,14 @@
-package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+/*
+* 登录过滤器，用于拦截未登录的用户访问需要登录才能访问的页面
+* */
 
 @WebFilter("/*") // 拦截所有请求
 public class AuthFilter implements Filter {
@@ -23,13 +27,9 @@ public class AuthFilter implements Filter {
         String path = httpRequest.getRequestURI();
         // 不需要过滤的路径，例如登录页面和静态资源
         if (path.endsWith("login.jsp") || path.endsWith("index.jsp") || path.endsWith("register.jsp") || path.endsWith("LoginServlet")|| path.contains("CaptchaServlet")
-                || path.endsWith("RegisterServlet") || path.contains("/css/") || path.contains("/img/")
+                || path.endsWith("register") || path.contains("/css/") || path.contains("/img/")
                 || path.contains("/js/")) {
             chain.doFilter(request, response); // 放行
-            return;
-        }
-        if (path.endsWith("AssignStudentServletChange") || path.endsWith("GetStudentsServlet") || path.endsWith("RemoveStudentServlet")) {
-            chain.doFilter(request, response);
             return;
         }
         // 判断用户是否登录

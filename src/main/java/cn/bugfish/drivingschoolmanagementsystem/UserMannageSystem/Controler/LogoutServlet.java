@@ -1,4 +1,4 @@
-package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

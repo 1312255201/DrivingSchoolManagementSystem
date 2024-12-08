@@ -1,4 +1,7 @@
-package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Filter;
+/*
+ * 实名认证过滤器，用于拦截未实名认证的用户访问进行实名认证的过滤器
+ * */
 
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
 import jakarta.servlet.*;
@@ -21,7 +24,7 @@ public class FinishInfoFilter implements Filter {
         HttpSession session = httpRequest.getSession();
         String path = httpRequest.getRequestURI();
         if (path.endsWith("login.jsp") || path.endsWith("index.jsp") || path.endsWith("register.jsp") || path.endsWith("LoginServlet")
-                || path.endsWith("RegisterServlet") || path.contains("/css/") || path.contains("/img/")
+                || path.endsWith("register") || path.contains("/css/") || path.contains("/img/")
                 || path.contains("/js/")) {
             chain.doFilter(request, response); // 放行
             return;

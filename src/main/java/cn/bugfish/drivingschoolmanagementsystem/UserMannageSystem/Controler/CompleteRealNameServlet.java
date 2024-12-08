@@ -1,4 +1,4 @@
-package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
 import jakarta.servlet.*;

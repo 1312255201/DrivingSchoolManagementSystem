@@ -1,6 +1,6 @@
 package cn.bugfish.drivingschoolmanagementsystem.DataBase;
 
-import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.User;
+import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Model.User;
 
 import java.sql.*;
 

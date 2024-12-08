@@ -24,33 +24,27 @@
     </style>
 </head>
 <body>
-<h3>可选课程</h3>
-<!-- 搜索栏 -->
-<div class="search-form">
-    <form id="searchForm" action="searchCourses.jsp" method="get">
-        <input class="search-input" type="text" name="query" placeholder="请输入课程名称">
-        <input class="search-button" type="submit" value="搜索">
-    </form>
-</div>
-<table id="available-courses">
+<h1>学生选课系统</h1>
+
+
+
+<h3>已选课程</h3>
+<table id="selected-courses">
     <thead>
     <tr>
         <th>课程号</th>
         <th>课程名称</th>
         <th>开始时间</th>
         <th>结束时间</th>
-        <th>剩余名额</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr><td colspan="6">加载中...</td></tr>
+    <tr><td colspan="5">加载中...</td></tr>
     </tbody>
 </table>
 
-
-
-<script src="js/student_select_lessen.js"></script>
+<script src="js/student_selected_lessen.js"></script>
 
 </body>
 </html>

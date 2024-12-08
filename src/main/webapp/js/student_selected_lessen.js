@@ -23,6 +23,8 @@ function loadCourses() {
         });
 }
 
+
+
 function selectCourse(courseId) {
     fetch('select-course', {
         method: 'POST',
@@ -36,9 +38,6 @@ function selectCourse(courseId) {
             loadSelectedCourses();
         });
 }
-
-
-
 function loadSelectedCourses() {
     fetch('get-selected-courses')
         .then(response => response.json())
@@ -62,7 +61,6 @@ function loadSelectedCourses() {
             }
         });
 }
-
 
 function cancelCourse(courseId) {
     fetch('cancel-course', {

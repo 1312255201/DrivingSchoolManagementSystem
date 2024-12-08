@@ -23,13 +23,12 @@ public class FinishInfoFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
         String path = httpRequest.getRequestURI();
-        if (path.endsWith("login.jsp") || path.endsWith("index.jsp") || path.endsWith("register.jsp") || path.endsWith("LoginServlet")
-                || path.endsWith("register") || path.contains("/css/") || path.contains("/img/")
+        if (path.endsWith("login.jsp") || path.endsWith("index.jsp") || path.endsWith("register.jsp")|| path.endsWith("forget-password.jsp")|| path.endsWith("reset-password.jsp")|| path.endsWith("LoginServlet")|| path.contains("CaptchaServlet")
+                || path.endsWith("register")|| path.endsWith("forgot-password") || path.endsWith("reset-password") || path.contains("/css/") || path.contains("/img/")
                 || path.contains("/js/")) {
             chain.doFilter(request, response); // 放行
             return;
         }
-
         // 从 session 获取当前用户的 ID（假设登录时已存储）
         Integer userId = (Integer) session.getAttribute("userid");
         if (userId == null) {

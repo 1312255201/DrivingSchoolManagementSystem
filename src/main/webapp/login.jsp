@@ -137,6 +137,7 @@
 
     <div class="footer">
         <p>没有账号？<a href="register.jsp">立即注册</a></p>
+        <p>忘记密码？<a href="forget-password.jsp">找回密码</a></p>
     </div>
 </div>
 </body>

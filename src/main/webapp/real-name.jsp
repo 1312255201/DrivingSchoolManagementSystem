@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: AFish
+  Date: 2024/12/3
+  Time: 19:07
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh">
@@ -69,6 +76,14 @@
     .btn-submit:hover {
       background-color: #0056b3;
     }
+    .image-preview {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .image-preview img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -81,14 +96,34 @@
     </div>
     <div class="form-group">
       <label for="idnumber">身份证号</label>
-      <input type="text" id="idnumber" name="idnumber" placeholder="请输入身份证号" required>
+      <input type="text" id="idnumber" name="idnumber" placeholder="请输入身份证号"
+             pattern="\d{15}|\d{18}|\d{17}[Xx]"
+             title="请输入有效的身份证号" required>
     </div>
     <div class="form-group">
       <label for="avatar">上传证件照</label>
       <input type="file" id="avatar" name="avatar" accept="image/*" required>
+      <div class="image-preview" id="image-preview"></div>
     </div>
     <button type="submit" class="btn-submit">提交</button>
   </form>
 </div>
+
+<script>
+  document.getElementById('avatar').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const previewContainer = document.getElementById('image-preview');
+    previewContainer.innerHTML = ''; // 清空之前的预览内容
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        previewContainer.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
 </body>
 </html>

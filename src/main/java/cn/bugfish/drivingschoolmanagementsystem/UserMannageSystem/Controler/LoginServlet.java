@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -43,27 +45,36 @@ public class LoginServlet extends HttpServlet {
         Connection conn = null;
         try {
             conn = DBUtil.getConnection();
-            String query = "SELECT * FROM users WHERE phonenumber = ? AND password = ?";
+            String query = "SELECT * FROM users WHERE phonenumber = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
-            stmt.setString(2, password);
 
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                session = request.getSession();
-                session.setAttribute("userid", rs.getInt("id"));
-                session.setAttribute("userrole", rs.getString("role"));
-                session.setAttribute("username", rs.getString("name"));
-                session.setAttribute("useridnumber", rs.getString("idnumber"));
-                session.setAttribute("useremail", rs.getString("email"));
-                session.setAttribute("userphonenumber", rs.getString("phonenumber"));
-                if ( !rs.getString("idnumber").equals("请补全个人信息"))
-                {
-                    session.setAttribute("avatar", "avatars/"+ rs.getString("idnumber") + ".png");
+                // 获取数据库中存储的加密密码
+                String hashedPassword = rs.getString("password");
+
+                // 使用 BCrypt 验证密码
+                if (BCrypt.checkpw(password, hashedPassword)) {
+                    // 登录成功，设置 Session 属性
+                    session.setAttribute("userid", rs.getInt("id"));
+                    session.setAttribute("userrole", rs.getString("role"));
+                    session.setAttribute("username", rs.getString("name"));
+                    session.setAttribute("useridnumber", rs.getString("idnumber"));
+                    session.setAttribute("useremail", rs.getString("email"));
+                    session.setAttribute("userphonenumber", rs.getString("phonenumber"));
+
+                    if (!rs.getString("idnumber").equals("请补全个人信息")) {
+                        session.setAttribute("avatar", "avatars/" + rs.getString("idnumber") + ".png");
+                    }
+                    response.sendRedirect("dashboard.jsp");
+                } else {
+                    // 密码错误
+                    response.sendRedirect("login.jsp?error=invalidCredentials");
                 }
-                response.sendRedirect("dashboard.jsp");
             } else {
+                // 用户不存在
                 response.sendRedirect("login.jsp?error=invalidCredentials");
             }
         } catch (SQLException e) {
@@ -73,5 +84,4 @@ public class LoginServlet extends HttpServlet {
             DBUtil.closeConnection(conn);
         }
     }
-
 }

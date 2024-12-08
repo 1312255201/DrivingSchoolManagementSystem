@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -27,9 +28,9 @@ public class EditProfileServlet extends HttpServlet {
         request.setAttribute("field", field);
         request.setAttribute("value", getSessionValue(field, request));
         request.getRequestDispatcher("editField.jsp").forward(request, response);
-
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String field = request.getParameter("field");
         String newValue = request.getParameter("newValue");
@@ -61,7 +62,7 @@ public class EditProfileServlet extends HttpServlet {
 
             case "phonenumber":
                 // 验证当前密码
-                if (confirmValue == null || !confirmValue.equals(user.getPassword())) {
+                if (confirmValue == null || !BCrypt.checkpw(confirmValue, user.getPassword())) {
                     response.getWriter().write("confirm-fail"); // 确认失败
                     return;
                 }
@@ -81,11 +82,13 @@ public class EditProfileServlet extends HttpServlet {
 
             case "password":
                 // 验证当前密码
-                if (confirmValue == null || !confirmValue.equals(user.getPassword())) {
+                if (confirmValue == null || !BCrypt.checkpw(confirmValue, user.getPassword())) {
                     response.getWriter().write("confirm-fail"); // 确认失败
                     return;
                 }
-                success = userDao.updateUser(user, "password", newValue);
+                // 使用加密存储新密码
+                String hashedPassword = BCrypt.hashpw(newValue, BCrypt.gensalt());
+                success = userDao.updateUser(user, "password", hashedPassword);
                 break;
 
             default:
@@ -100,7 +103,6 @@ public class EditProfileServlet extends HttpServlet {
             response.getWriter().write("fail");
         }
     }
-
 
     private String getSessionValue(String field, HttpServletRequest request) {
         return (String) request.getSession(false).getAttribute("user" + field);

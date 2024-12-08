@@ -114,6 +114,8 @@
             <a href="dashboard.jsp?section=usermanage" class="<%= "usermanage".equals(request.getParameter("section")) ? "active" : "" %>">用户管理</a>
             <a href="dashboard.jsp?section=assignstudent" class="<%= "assignstudent".equals(request.getParameter("section")) ? "active" : "" %>">学员分配</a>
             <a href="dashboard.jsp?section=review-leave-requests" class="<%= "review-leave-requests".equals(request.getParameter("section")) ? "active" : "" %>">请假管理</a>
+            <a href="dashboard.jsp?section=registration_review" class="<%= "registration_review".equals(request.getParameter("section")) ? "active" : "" %>">审核报名</a>
+            <a href="dashboard.jsp?section=fee_paymentadmin" class="<%= "fee_paymentadmin".equals(request.getParameter("section")) ? "active" : "" %>">管理员支付与费用</a>
             <%
             } else if ("user".equals(userRole)) {
             %>
@@ -128,6 +130,9 @@
                 <li> <a href="dashboard.jsp?section=student_select_exam" class="<%= "student_select_exam".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考试信息</a> </li>
                 <li> <a href="dashboard.jsp?section=student_selected_exam" class="<%= "student_selected_exam".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考试记录</a> </li>
             </ul>
+            <a href="dashboard.jsp?section=fee_payment" class="<%= "fee_payment".equals(request.getParameter("section")) ? "active" : "" %>">费用与支付</a>
+            <a href="dashboard.jsp?section=student_registration" class="<%= "student_registration".equals(request.getParameter("section")) ? "active" : "" %>">考生报名</a>
+            <a href="dashboard.jsp?section=my_registration" class="<%= "my_registration".equals(request.getParameter("section")) ? "active" : "" %>">查看报名信息</a>
             <a href="dashboard.jsp?section=student_time" class="<%= "student_time".equals(request.getParameter("section")) ? "active" : "" %>">预约练车</a>
             <%
             } else if ("coach".equals(userRole)) {
@@ -187,8 +192,18 @@
     %><jsp:include page="leave-requests.jsp" /> <%
     }else if ("review-leave-requests".equals(section)) {
     %><jsp:include page="review-leave-requests.jsp" /> <%
-    }else {
-    %><jsp:include page="home.jsp" /> <%
+    }else if ("fee_payment".equals(section)) {
+    %><jsp:include page="fee_payment.jsp" />
+        <%} else if ("student_registration".equals(section)) {
+        %><jsp:include page="student_registration.jsp" />
+        <%} else if ("registration_review".equals(section)) {
+        %><jsp:include page="registration_review.jsp" />
+        <%} else if ("my_registration".equals(section)) {
+        %><jsp:include page="my_registration.jsp" />
+        <%} else if ("fee_paymentadmin".equals(section)) {
+        %><jsp:include page="fee_paymentadmin.jsp" />
+        <%}else {
+        %><jsp:include page="home.jsp" /> <%
         }
     %>
     </div>

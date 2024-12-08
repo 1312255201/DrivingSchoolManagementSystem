@@ -124,6 +124,10 @@
                 <li> <a href="dashboard.jsp?section=student_select_lessen" class="<%= "student_select_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">课程信息</a> </li>
                 <li> <a href="dashboard.jsp?section=student_selected_lessen" class="<%= "student_selected_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">选课记录</a> </li>
             </ul>
+            <ul class="nav nav-subnav">
+                <li> <a href="dashboard.jsp?section=student_select_exam" class="<%= "student_select_exam".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考试信息</a> </li>
+                <li> <a href="dashboard.jsp?section=student_selected_exam" class="<%= "student_selected_exam".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考试记录</a> </li>
+            </ul>
             <a href="dashboard.jsp?section=student_time" class="<%= "student_time".equals(request.getParameter("section")) ? "active" : "" %>">预约练车</a>
             <%
             } else if ("coach".equals(userRole)) {
@@ -132,6 +136,7 @@
             <a href="dashboard.jsp?section=coach-time" class="<%= "coach-time".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">预约管理</a>
             <a href="dashboard.jsp?section=profile" class="<%= "profile".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=coach_lessen" class="<%= "coach_lessen".equals(request.getParameter("section")) ? "active" : "" %>">我的课程</a>
+            <a href="dashboard.jsp?section=coach_exam" class="<%= "coach_exam".equals(request.getParameter("section")) ? "active" : "" %>">我的考试</a>
             <a href="dashboard.jsp?section=leave-requests" class="<%= "leave-requests".equals(request.getParameter("section")) ? "active" : "" %>">请假管理</a>
             <%
                 } else {
@@ -172,6 +177,12 @@
     %><jsp:include page="student_selected_lessen.jsp" /> <%
     }else if ("coach_lessen".equals(section)) {
     %><jsp:include page="coach_lessen.jsp" /> <%
+    }else if ("student_select_exam".equals(section)) {
+    %><jsp:include page="student_select_exam.jsp" /> <%
+    }else if ("student_selected_exam".equals(section)) {
+    %><jsp:include page="student_selected_exam.jsp" /> <%
+    }else if ("coach_exam".equals(section)) {
+    %><jsp:include page="coach_exam.jsp" /> <%
     }else if ("leave-requests".equals(section)) {
     %><jsp:include page="leave-requests.jsp" /> <%
     }else if ("review-leave-requests".equals(section)) {

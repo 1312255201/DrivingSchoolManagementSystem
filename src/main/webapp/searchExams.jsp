@@ -26,7 +26,7 @@
         out.println("<p>请输入课程名称进行搜索。</p>");
     } else {
         try (Connection conn = DBUtil.getConnection()) {
-            String sql = "SELECT * FROM courses WHERE name LIKE ?";
+            String sql = "SELECT * FROM exams WHERE name LIKE ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, "%" + query + "%");  // 使用 LIKE 操作符进行模糊查询
                 try (ResultSet rs = ps.executeQuery()) {
@@ -37,8 +37,8 @@
 <table>
     <thead>
     <tr>
-        <th>课程号</th>
-        <th>课程名称</th>
+        <th>考试号</th>
+        <th>考试名称</th>
         <th>开始时间</th>
         <th>结束时间</th>
         <th>剩余名额</th>
@@ -50,15 +50,15 @@
         do {
     %>
     <tr>
-        <td><%= rs.getString("course_number") %></td>
+        <td><%= rs.getString("exam_number") %></td>
         <td><%= rs.getString("name") %></td>
         <td><%= rs.getString("start_time") %></td>
         <td><%= rs.getString("end_time") %></td>
         <td><%= rs.getInt("capacity") %></td>
         <td>
-            <form action="select-course" method="post">
-                <input type="hidden" name="course_id" value="<%= rs.getInt("id") %>">
-                <input type="submit" class="btn btn-select" value="选课">
+            <form action="select-exam" method="post">
+                <input type="hidden" name="exam_id" value="<%= rs.getInt("id") %>">
+                <input type="submit" class="btn btn-select" value="选择考试">
             </form>
         </td>
     </tr>

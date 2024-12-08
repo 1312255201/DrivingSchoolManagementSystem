@@ -28,6 +28,13 @@
       background-color: #007BFF;
       color: white;
     }
+    .filter-bar {
+      margin-bottom: 20px;
+    }
+    .filter-bar input, .filter-bar select {
+      padding: 5px;
+      margin-right: 10px;
+    }
     .edit-btn, .reset-btn, .delete-btn {
       padding: 5px 10px;
       color: white;
@@ -54,7 +61,22 @@
 </head>
 <body>
 <h1>用户管理</h1>
-<table>
+
+<div class="filter-bar">
+  <input type="text" id="searchInput" placeholder="输入任何信息搜索" onkeyup="filterTable()">
+  <select id="roleFilter" onchange="filterTable()">
+    <option value="">所有角色</option>
+    <option value="admin">管理员</option>
+    <option value="user">用户</option>
+    <option value="coach">教练</option>
+  </select>
+  <label for="startDate">注册时间:</label>
+  <input type="date" id="startDate" onchange="filterTable()">
+  <label for="endDate">至</label>
+  <input type="date" id="endDate" onchange="filterTable()">
+</div>
+
+<table id="userTable">
   <thead>
   <tr>
     <th>ID</th>
@@ -63,6 +85,7 @@
     <th>手机号</th>
     <th>邮箱</th>
     <th>角色</th>
+    <th>创建时间</th>
     <th>操作</th>
   </tr>
   </thead>
@@ -83,6 +106,7 @@
         String phonenumber = rs.getString("phonenumber");
         String email = rs.getString("email");
         String role = rs.getString("role");
+        Timestamp create_at = rs.getTimestamp("created_at");
   %>
   <tr>
     <td><%= id %></td>
@@ -91,6 +115,7 @@
     <td><%= phonenumber %></td>
     <td><%= email %></td>
     <td><%= role %></td>
+    <td><%= create_at %></td>
     <td>
       <button class="edit-btn" onclick="openEditModal(<%= id %>, '<%= name %>', '<%= idnumber %>', '<%= phonenumber %>', '<%= email %>', '<%= role %>')">编辑</button>
       <form action="ResetPasswordServlet" method="post" style="display:inline;">
@@ -115,7 +140,6 @@
   </tbody>
 </table>
 
-<!-- 模态框 -->
 <div id="editModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border-radius:8px; box-shadow:0 4px 8px rgba(0, 0, 0, 0.2);">
   <form action="EditUserServlet" method="post">
     <input type="hidden" id="userId" name="id">
@@ -150,7 +174,7 @@
   </form>
 </div>
 
-<script src="../js/usermanage.js"></script>
+<script src="js/usermanage.js"></script>
 
 </body>
 </html>

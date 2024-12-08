@@ -1,6 +1,5 @@
 package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

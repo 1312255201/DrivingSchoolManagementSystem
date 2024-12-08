@@ -12,6 +12,46 @@ function closeEditModal() {
     document.getElementById('editModal').style.display = 'none';
 }
 
+function filterTable() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const roleFilter = document.getElementById('roleFilter').value.toLowerCase();
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    const table = document.getElementById('userTable');
+    const rows = table.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const name = cells[1].textContent.toLowerCase();
+        const idnumber = cells[2].textContent.toLowerCase();
+        const phonenumber = cells[3].textContent.toLowerCase();
+        const email = cells[4].textContent.toLowerCase();
+        const role = cells[5].textContent.toLowerCase();
+        const createTime = cells[6].textContent;
+
+        let show = true;
+
+        if (searchInput && ![name, idnumber, phonenumber, email].some(field => field.includes(searchInput))) {
+            show = false;
+        }
+
+        if (roleFilter && role !== roleFilter) {
+            show = false;
+        }
+
+        if (startDate && new Date(createTime) < new Date(startDate)) {
+            show = false;
+        }
+
+        if (endDate && new Date(createTime) > new Date(endDate)) {
+            show = false;
+        }
+
+        rows[i].style.display = show ? '' : 'none';
+    }
+}
+
 function confirmDelete(userId) {
     const adminPassword = prompt("请输入管理员密码以确认删除操作：");
 

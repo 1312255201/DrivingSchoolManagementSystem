@@ -12,7 +12,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().removeAttribute("userid"); // 移除登录用户信息
+        request.getSession().removeAttribute("userid"); // 移除登录用户信息(确保日志记录)
         // 销毁用户的会话
         request.getSession().invalidate();
         // 跳转到登录页面

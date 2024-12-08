@@ -1,5 +1,4 @@
 // 打开模态框
-// 打开模态框
 function openModal(field, value) {
     document.getElementById('editModal').style.display = 'flex';
     document.getElementById('modalTitle').textContent = `编辑 ${field}`;
@@ -66,12 +65,10 @@ function submitEdit() {
         }
     };
 
-    // 发送数据，包含确认信息
     xhr.send(`field=${encodeURIComponent(field)}&newValue=${encodeURIComponent(newValue)}&confirmValue=${encodeURIComponent(confirmValue)}`);
 }
 
 
-// 点击模态框外部关闭
 window.onclick = function (event) {
     const modal = document.getElementById('editModal');
     if (event.target === modal) {

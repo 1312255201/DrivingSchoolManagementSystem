@@ -156,7 +156,7 @@
         <% if (avatarUrl != null && !avatarUrl.isEmpty() ) { %>
         <img src="<%= avatarUrl %>" alt="证件照">
         <% } else { %>
-        <img src="img/default-avatar.png" alt="默认头像">
+        <img src="../img/default-avatar.png" alt="默认头像">
         <% } %>
     </div>
 
@@ -216,7 +216,7 @@
     </div>
 </div>
 
-<script src="js/profile.js"></script>
+<script src="../js/profile.js"></script>
 
 </body>
 </html>

@@ -158,9 +158,9 @@
     } else if ("settings".equals(section)) {
     %><jsp:include page="settings.jsp" /> <%
     }else if ("profile".equals(section)) {
-    %><jsp:include page="profile.jsp" /> <%
+    %><jsp:include page="UserManageView/profile.jsp" /> <%
     }else if ("usermanage".equals(section)) {
-    %><jsp:include page="user-management.jsp" /> <%
+    %><jsp:include page="UserManageView/user-management.jsp" /> <%
     }else if ("assignstudent".equals(section)) {
     %><jsp:include page="assign-student.jsp" /> <%
     }else if ("studentinfo".equals(section)) {

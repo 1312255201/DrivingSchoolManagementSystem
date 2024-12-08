@@ -150,7 +150,7 @@
   </form>
 </div>
 
-<script src="js/usermanage.js"></script>
+<script src="../js/usermanage.js"></script>
 
 </body>
 </html>

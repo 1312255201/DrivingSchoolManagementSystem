@@ -1,4 +1,4 @@
-package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
+package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Service;
 
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
 import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Beans.UserBean;

@@ -1,6 +1,7 @@
 package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
+import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Listener.UserEditListener;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class DeleteUserServlet extends HttpServlet {
                     } else {
                         response.setContentType("application/json");
                         response.getWriter().write("{\"success\": false, \"message\": \"管理员身份验证失败！\"}");
+                        UserEditListener.logger.info("删除用户失败，管理员账户错误！！！！");
                         return;
                     }
                 }

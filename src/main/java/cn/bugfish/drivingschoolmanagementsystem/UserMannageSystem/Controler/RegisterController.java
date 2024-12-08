@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ public class RegisterController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+        String captcha = request.getParameter("captcha");
 
         // 验证输入
         if (phonenumber == null || phonenumber.isEmpty() ||
@@ -35,6 +37,14 @@ public class RegisterController extends HttpServlet {
 
         if (!password.equals(confirmPassword)) {
             request.setAttribute("error", "两次输入的密码不一致！");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+
+        HttpSession session = request.getSession();
+        String sessionCaptcha = (String) session.getAttribute("captcha");
+        if (sessionCaptcha == null || !sessionCaptcha.equalsIgnoreCase(captcha)) {
+            request.setAttribute("error", "验证码错误！");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }

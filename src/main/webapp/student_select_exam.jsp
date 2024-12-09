@@ -24,19 +24,19 @@
     </style>
 </head>
 <body>
-<h3>可选课程</h3>
+<h3>可报考试</h3>
 <!-- 搜索栏 -->
 <div class="search-form">
     <form id="searchForm" action="searchExams.jsp" method="get">
-        <input class="search-input" type="text" name="query" placeholder="请输入课程名称">
+        <input class="search-input" type="text" name="query" placeholder="请输入考试名称">
         <input class="search-button" type="submit" value="搜索">
     </form>
 </div>
 <table id="available-exams">
     <thead>
     <tr>
-        <th>课程号</th>
-        <th>课程名称</th>
+        <th>考试编号</th>
+        <th>考试名称</th>
         <th>开始时间</th>
         <th>结束时间</th>
         <th>剩余名额</th>

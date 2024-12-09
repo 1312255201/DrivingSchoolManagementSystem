@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学生选课系统</title>
+    <title>学生报考系统</title>
     <style>
         h1 { text-align: center; }
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
@@ -24,16 +24,16 @@
     </style>
 </head>
 <body>
-<h1>学生选课系统</h1>
+<h1>学生报考系统</h1>
 
 
 
-<h3>已选课程</h3>
+<h3>已报考试</h3>
 <table id="selected-exams">
     <thead>
     <tr>
-        <th>课程号</th>
-        <th>课程名称</th>
+        <th>考试编号</th>
+        <th>考试名称</th>
         <th>开始时间</th>
         <th>结束时间</th>
         <th>操作</th>

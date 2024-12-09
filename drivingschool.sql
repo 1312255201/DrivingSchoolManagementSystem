@@ -84,12 +84,12 @@ DROP TABLE IF EXISTS `exam_selection`;
 CREATE TABLE `exam_selection`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL COMMENT '学生ID',
-  `course_id` int(11) NOT NULL COMMENT '考试ID',
+  `exam_id` int(11) NOT NULL COMMENT '考试ID',
   `selected_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '考试时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_student`(`student_id`) USING BTREE,
-  INDEX `fk_course`(`course_id`) USING BTREE,
-  CONSTRAINT `exam_selection_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  INDEX `fk_course`(`exam_id`) USING BTREE,
+  CONSTRAINT `exam_selection_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_selection_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生考试记录表' ROW_FORMAT = DYNAMIC;
 
@@ -105,11 +105,8 @@ CREATE TABLE `exams`  (
   `end_time` datetime NOT NULL COMMENT '考试结束时间',
   `capacity` int(11) NOT NULL COMMENT '可容考试人数',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '考试内容',
-  `coach_id` int(11) NOT NULL COMMENT '教练ID',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `coach_id`(`coach_id`) USING BTREE,
-  CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考试白哦' ROW_FORMAT = DYNAMIC;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考试表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for fees

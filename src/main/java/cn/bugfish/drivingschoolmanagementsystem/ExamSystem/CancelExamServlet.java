@@ -17,7 +17,6 @@ public class CancelExamServlet extends HttpServlet {
         int studentId = (int) request.getSession().getAttribute("userid");
         int examId = Integer.parseInt(request.getParameter("exam_id"));
         try (Connection conn = DBUtil.getConnection()) {
-            System.out.println("qwq");
             String sql = "DELETE FROM exam_selection WHERE student_id = ? AND exam_id = ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, studentId);

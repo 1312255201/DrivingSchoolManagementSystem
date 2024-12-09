@@ -141,6 +141,28 @@ function confirmDelete(userId) {
     }
 }
 
+async function resetPasswordAdmin(userId) {
+    try {
+        const response = await fetch('ResetPasswordServlet', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: userId }), // 使用 JSON 格式发送数据
+        });
+
+        if (!response.ok) {
+            throw new Error('服务器错误，请稍后重试');
+        }
+
+        const result = await response.json();
+        alert(result.message); // 弹窗显示结果消息
+    } catch (error) {
+        console.error(error);
+        alert('请求失败，请稍后重试');
+    }
+}
+
 
 function closeDeleteModal() {
     document.getElementById('deleteModal').style.display = 'none';

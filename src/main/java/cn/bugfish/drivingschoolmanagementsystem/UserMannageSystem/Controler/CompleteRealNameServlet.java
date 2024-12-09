@@ -2,6 +2,7 @@ package cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Controler;
 
 import cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil;
 import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Loger.UserMannageSystemLoger;
+import cn.bugfish.drivingschoolmanagementsystem.UserMannageSystem.Model.User;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @MultipartConfig
 @WebServlet("/CompleteRealNameServlet")
@@ -54,7 +57,20 @@ public class CompleteRealNameServlet extends HttpServlet {
         // 将头像文件写入到指定目录
         avatarPart.write(avatarPath + sanitizedIdNumber + ".png"); // 保存文件
         // 定义SQL语句，用于更新用户信息
-        String sql = "UPDATE users SET name = ?, idnumber = ?, finish_info = 'yes' WHERE id = ?";
+        String sql = "SELECT * FROM users WHERE idnumber = ?";
+        try (Connection conn = DBUtil.getConnection();
+
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, idnumber);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "身份证号已经在数据库中存在了。");
+            }
+        } catch (SQLException e) {
+            UserMannageSystemLoger.logger.error("发生错误在完成实名信息的CompleteRealNameServlet中验证身份证模块: ", e);
+        }
+
+        sql = "UPDATE users SET name = ?, idnumber = ?, finish_info = 'yes' WHERE id = ?";
         try (Connection conn = DBUtil.getConnection();
              // 设置SQL语句中的参数
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

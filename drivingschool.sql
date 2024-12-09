@@ -105,7 +105,10 @@ CREATE TABLE `exams`  (
   `end_time` datetime NOT NULL COMMENT '考试结束时间',
   `capacity` int(11) NOT NULL COMMENT '可容考试人数',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '考试内容',
-  PRIMARY KEY (`id`) USING BTREE
+  `admin_id` int(11) NOT NULL COMMENT '管理员ID',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `admin_id`(`admin_id`) USING BTREE,
+  CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考试表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------

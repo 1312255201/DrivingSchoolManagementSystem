@@ -5,7 +5,7 @@ function loadexams() {
             const tbody = document.getElementById('available-exams').querySelector('tbody');
             tbody.innerHTML = '';
             if (data.exams.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6">暂无可选课程</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6">暂无可报考试</td></tr>';
             } else {
                 data.exams.forEach(exam => {
                     const tr = document.createElement('tr');
@@ -15,7 +15,7 @@ function loadexams() {
               <td>${exam.start_time}</td>
               <td>${exam.end_time}</td>
               <td>${exam.remaining_capacity}</td>
-              <td><button class="btn btn-select" onclick="selectexam(${exam.id})">选课</button></td>
+              <td><button class="btn btn-select" onclick="selectexam(${exam.id})">报考</button></td>
             `;
                     tbody.appendChild(tr);
                 });
@@ -46,7 +46,7 @@ function loadSelectedexams() {
             const tbody = document.getElementById('selected-exams').querySelector('tbody');
             tbody.innerHTML = '';
             if (data.exams.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5">暂无已选课程</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5">暂无已报考试</td></tr>';
             } else {
                 data.exams.forEach(exam => {
                     const tr = document.createElement('tr');

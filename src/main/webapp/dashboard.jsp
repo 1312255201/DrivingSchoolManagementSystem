@@ -113,6 +113,7 @@
             <a href="dashboard.jsp?section=profile" class="<%= "home".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
             <a href="dashboard.jsp?section=usermanage" class="<%= "usermanage".equals(request.getParameter("section")) ? "active" : "" %>">用户管理</a>
             <a href="dashboard.jsp?section=assignstudent" class="<%= "assignstudent".equals(request.getParameter("section")) ? "active" : "" %>">学员分配</a>
+            <a href="dashboard.jsp?section=lessen" class="<%= "lessen".equals(request.getParameter("section")) ? "active" : "" %>">课程管理</a>
             <a href="dashboard.jsp?section=review-leave-requests" class="<%= "review-leave-requests".equals(request.getParameter("section")) ? "active" : "" %>">请假管理</a>
             <a href="dashboard.jsp?section=registration_review" class="<%= "registration_review".equals(request.getParameter("section")) ? "active" : "" %>">审核报名</a>
             <a href="dashboard.jsp?section=fee_paymentadmin" class="<%= "fee_paymentadmin".equals(request.getParameter("section")) ? "active" : "" %>">管理员支付与费用</a>
@@ -177,6 +178,8 @@
     %><jsp:include page="student_select_lessen.jsp" /> <%
     }else if ("student_selected_lessen".equals(section)) {
     %><jsp:include page="student_selected_lessen.jsp" /> <%
+    }else if ("lessen".equals(section)) {
+    %><jsp:include page="lessen.jsp" /> <%
     }else if ("coach_lessen".equals(section)) {
     %><jsp:include page="coach_lessen.jsp" /> <%
     }else if ("student_select_exam".equals(section)) {

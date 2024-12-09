@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课程管理系统</title>
+    <title>考试管理系统</title>
     <style>
         h1 {
             text-align: center;

@@ -7,57 +7,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>用户管理</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #007BFF;
-      color: white;
-    }
-    .filter-bar {
-      margin-bottom: 20px;
-    }
-    .filter-bar input, .filter-bar select {
-      padding: 5px;
-      margin-right: 10px;
-    }
-    .edit-btn, .reset-btn, .delete-btn {
-      padding: 5px 10px;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .reset-btn {
-      background-color: #28a745;
-    }
-    .delete-btn {
-      background-color: #dc3545;
-    }
-    .edit-btn:hover {
-      background-color: #0056b3;
-    }
-    .reset-btn:hover {
-      background-color: #218838;
-    }
-    .delete-btn:hover {
-      background-color: #c82333;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/usermanagement.css">
+
 </head>
 <body>
 <h1>用户管理</h1>

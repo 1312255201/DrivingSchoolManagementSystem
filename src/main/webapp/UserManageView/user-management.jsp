@@ -118,9 +118,9 @@
     <td><%= create_at %></td>
     <td>
       <button class="edit-btn" onclick="openEditModal(<%= id %>, '<%= name %>', '<%= idnumber %>', '<%= phonenumber %>', '<%= email %>', '<%= role %>')">编辑</button>
-      <form action="ResetPasswordServlet" method="post" style="display:inline;">
+      <form id="reset-password-form-<%= id %>" style="display:inline;">
         <input type="hidden" name="id" value="<%= id %>">
-        <button class="reset-btn" type="submit">重置密码</button>
+        <button class="reset-btn" type="button" onclick="resetPasswordAdmin('<%= id %>')">重置密码</button>
       </form>
       <form style="display:inline;" onsubmit="confirmDelete(<%= id %>);">
         <button class="delete-btn" type="submit">删除</button>

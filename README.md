@@ -13,6 +13,8 @@ https://blog.csdn.net/Lo_CoCo_vE/article/details/131400289
 
 Tomcat：10.1.28
 
+Mysql 5.7
+
 需要修改Tomcat的log路径可写，或用管理员运行项目
 
 需要对tomcat进行配置

@@ -41,11 +41,9 @@
             %>
             <a href="dashboard.jsp?section=studentinfo" class="<%= "studentinfo".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">考证进度</a>
             <a href="dashboard.jsp?section=profile" class="<%= "profile".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">个人资料</a>
-            <span style="font-size: 16px;">课程</span>
-            <ul class="nav nav-subnav">
-                <li> <a href="dashboard.jsp?section=student_select_lessen" class="<%= "student_select_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">课程信息</a> </li>
-                <li> <a href="dashboard.jsp?section=student_selected_lessen" class="<%= "student_selected_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">选课记录</a> </li>
-            </ul>
+            <a href="dashboard.jsp?section=student_select_lessen" class="<%= "student_select_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">课程信息</a> </li>
+            <a href="dashboard.jsp?section=student_selected_lessen" class="<%= "student_selected_lessen".equals(request.getParameter("section")) || request.getParameter("section") == null ? "active" : "" %>">选课记录</a> </li>
+
             <a href="dashboard.jsp?section=student_select_exam" class="<%= "student_select_exam".equals(request.getParameter("section")) ? "active" : "" %>">考试信息</a>
             <a href="dashboard.jsp?section=student_selected_exam" class="<%= "student_selected_exam".equals(request.getParameter("section")) ? "active" : "" %>">报考记录</a>
             <a href="dashboard.jsp?section=fee_payment" class="<%= "fee_payment".equals(request.getParameter("section")) ? "active" : "" %>">费用与支付</a>

@@ -1,42 +1,29 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: AFish
-  Date: 2024/12/7
-  Time: 17:09
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="cn.bugfish.drivingschoolmanagementsystem.DataBase.DBUtil" %>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学生选课系统</title>
-    <style>
-        h1 { text-align: center; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        .btn { padding: 5px 10px; color: #fff; border: none; cursor: pointer; border-radius: 4px; }
-        .btn-select { background-color: #28a745; }
-        .btn-cancel { background-color: #dc3545; }
-        .btn:hover { opacity: 0.8; }
-    </style>
+    <title>课程管理</title>
+    <link rel="stylesheet" type="text/css" href="css/usermanagement.css">
+
 </head>
 <body>
-<h3>可选课程</h3>
-<!-- 搜索栏 -->
-<div class="search-form">
-    <form id="searchForm" action="searchCourses.jsp" method="get">
-        <input class="search-input" type="text" name="query" placeholder="请输入课程名称">
-        <input class="search-button" type="submit" value="搜索">
-    </form>
+<h1>课程管理</h1>
+
+<div class="filter-bar">
+    <input type="text" id="searchInput" placeholder="输入课程号和课程名" onkeyup="filterTable1()">
+
 </div>
-<table id="available-courses">
+
+<table id="userTable">
     <thead>
     <tr>
+        <th>id</th>
         <th>课程号</th>
-        <th>课程名称</th>
+        <th>课程名</th>
         <th>开始时间</th>
         <th>结束时间</th>
         <th>剩余名额</th>
@@ -44,13 +31,48 @@
     </tr>
     </thead>
     <tbody>
-    <tr><td colspan="6">加载中...</td></tr>
+    <%
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM courses");
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String course_number = rs.getString("course_number");
+                String name = rs.getString("name");
+                Timestamp start_time = rs.getTimestamp("start_time");
+                Timestamp end_time = rs.getTimestamp("end_time");
+                String capacity = rs.getString("capacity");
+    %>
+    <tr>
+        <td><%= id %></td>
+        <td><%= course_number %></td>
+        <td><%= name %></td>
+        <td><%= start_time %></td>
+        <td><%= end_time %></td>
+        <td><%= capacity %></td>
+        <td>
+            <button  onclick="openEditModal(<%= id %>)">选课</button>
+        </td>
+    </tr>
+    <%
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        }
+    %>
     </tbody>
 </table>
 
-
-
-<script src="js/student_select_lessen.js"></script>
+<script src="js/select_lesson.js"></script>
 
 </body>
 </html>

@@ -78,7 +78,21 @@
     </form>
 
 </div>
-
+<table id="exam-table">
+    <thead>
+    <tr>
+        <th>课程编号</th>
+        <th>课程名称</th>
+        <th>选课时间</th>
+        <th>容量</th>
+        <th>教学内容</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 动态加载课程数据 -->
+    </tbody>
+</table>
 <script src="js/admin_exam.js"></script>
 
 </body>

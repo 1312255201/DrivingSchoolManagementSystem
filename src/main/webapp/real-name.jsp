@@ -89,7 +89,7 @@
 <body>
 <div class="container">
   <h1>实名信息填写</h1>
-  <form action="CompleteRealNameServlet" method="post" enctype="multipart/form-data">
+  <form>
     <div class="form-group">
       <label for="name">真实姓名</label>
       <input type="text" id="name" name="name" placeholder="请输入真实姓名" required>
@@ -109,21 +109,6 @@
   </form>
 </div>
 
-<script>
-  document.getElementById('avatar').addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    const previewContainer = document.getElementById('image-preview');
-    previewContainer.innerHTML = ''; // 清空之前的预览内容
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        previewContainer.appendChild(img);
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-</script>
+<script src="js/real-name.js"></script>
 </body>
 </html>

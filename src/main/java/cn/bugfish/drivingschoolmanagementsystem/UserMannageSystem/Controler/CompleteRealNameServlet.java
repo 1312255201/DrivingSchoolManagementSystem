@@ -35,7 +35,13 @@ public class CompleteRealNameServlet extends HttpServlet {
         // 从请求中获取用户上传的头像文件
         Part avatarPart = request.getPart("avatar");
         // 如果未上传头像，则返回错误信息
-        if (avatarPart == null || avatarPart.getSize() == 0) {
+        if (avatarPart == null) {
+            UserMannageSystemLoger.logger.warn("未收到 avatar 部分");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "请上传证件照！");
+            return;
+        }
+        if (avatarPart.getSize() == 0) {
+            UserMannageSystemLoger.logger.warn("avatar 文件大小为 0");
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "请上传证件照！");
             return;
         }

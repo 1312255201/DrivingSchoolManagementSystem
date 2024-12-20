@@ -22,7 +22,7 @@ public class ExamListener implements ServletRequestListener {
             String examId = request.getParameter("id");
 
             if (examId != null) {
-                logger.info(String.format("搜索考试请求接收1: 考试ID: %s", examId));
+                logger.info(String.format("搜索考试请求接收: 考试ID: %s", examId));
             } else {
                 logger.warning("搜索考试请求缺少必要参数: 考试ID");
             }

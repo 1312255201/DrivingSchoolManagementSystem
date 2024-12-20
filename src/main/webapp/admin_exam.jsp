@@ -65,7 +65,7 @@
         <br>
         <label for="start-time">考试开始时间:</label>
         <input type="datetime-local" id="start-time" name="start_time" required>
-        <label for="end-time">考试结束时间1:</label>
+        <label for="end-time">考试结束时间:</label>
         <input type="datetime-local" id="end-time" name="end_time" required>
         <br>
         <label for="capacity">可容纳人数:</label>

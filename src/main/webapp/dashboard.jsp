@@ -36,6 +36,7 @@
             <a href="dashboard.jsp?section=review-leave-requests" class="<%= "review-leave-requests".equals(request.getParameter("section")) ? "active" : "" %>">请假管理</a>
             <a href="dashboard.jsp?section=registration_review" class="<%= "registration_review".equals(request.getParameter("section")) ? "active" : "" %>">审核报名</a>
             <a href="dashboard.jsp?section=fee_paymentadmin" class="<%= "fee_paymentadmin".equals(request.getParameter("section")) ? "active" : "" %>">管理员支付与费用</a>
+            <a href="dashboard.jsp?section=salary" class="<%= "salary".equals(request.getParameter("section")) ? "active" : "" %>">工资结算</a>
             <%
             } else if ("user".equals(userRole)) {
             %>
@@ -109,6 +110,8 @@
     %><jsp:include page="leave-requests.jsp" /> <%
     }else if ("review-leave-requests".equals(section)) {
     %><jsp:include page="review-leave-requests.jsp" /> <%
+    }else if ("salary".equals(section)) {
+    %><jsp:include page="salary.jsp" /> <%
     }else if ("fee_payment".equals(section)) {
     %><jsp:include page="fee_payment.jsp" />
         <%} else if ("student_registration".equals(section)) {

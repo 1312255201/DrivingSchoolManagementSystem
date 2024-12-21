@@ -20,6 +20,8 @@ public class CompleteRealNameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
+
         //获取当前会话
         HttpSession session = request.getSession();
         // 从会话中获取用户ID
@@ -37,19 +39,23 @@ public class CompleteRealNameServlet extends HttpServlet {
         // 如果未上传头像，则返回错误信息
         if (avatarPart == null) {
             UserMannageSystemLoger.logger.warn("未收到 avatar 部分");
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "请上传证件照！");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\":\"证件照上传未完成，请稍后！\"}");
             return;
         }
+
         if (avatarPart.getSize() == 0) {
             UserMannageSystemLoger.logger.warn("avatar 文件大小为 0");
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "请上传证件照！");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\":\"证件照上传未完成，请稍后！\"}");
             return;
         }
 
         // 验证文件类型是否为图片
         String contentType = avatarPart.getContentType();
         if (!contentType.startsWith("image/")) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "文件类型不正确，请上传图片！");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\":\"文件类型不正确，请上传图片！\"}");
             return;
         }
         // 获取应用程序的绝对路径，并拼接出头像文件的保存路径
@@ -70,7 +76,10 @@ public class CompleteRealNameServlet extends HttpServlet {
             ps.setString(1, idnumber);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "身份证号已经在数据库中存在了。");
+                UserMannageSystemLoger.logger.warn("身份证号在数据库内重复");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\":\"身份证号已经在数据库中存在了！\"}");
+                return;
             }
         } catch (SQLException e) {
             UserMannageSystemLoger.logger.error("发生错误在完成实名信息的CompleteRealNameServlet中验证身份证模块: ", e);
@@ -93,13 +102,16 @@ public class CompleteRealNameServlet extends HttpServlet {
                 // 重定向到用户主页
                 response.sendRedirect("dashboard.jsp");
             } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "更新失败，请重试。");
+                UserMannageSystemLoger.logger.warn("实名信息更新失败");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\":\"实名信息更新失败！\"}");
             }
         } catch (Exception e) {
             // 记录错误日志
             UserMannageSystemLoger.logger.error("发生错误在完成实名信息的CompleteRealNameServlet中: ", e);
             // 返回服务器内部错误信息
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "服务器内部错误，请稍后重试。");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\":\"服务器内部错误，请稍后重试！\"}");
         }
     }
 }

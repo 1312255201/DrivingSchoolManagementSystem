@@ -31,8 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
             if (xhr.status === 200) {
                 alert("实名信息提交成功！");
                 window.location.href = "dashboard.jsp";
-            } else {
-                //alert(`提交失败：${xhr.status} - ${xhr.responseText}`);
+            }
+            else{
+                const response = JSON.parse(xhr.responseText);
+                alert(response.error || "提交过程中发生错误，请检查网络或稍后再试。");
             }
         };
 

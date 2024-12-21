@@ -15,7 +15,6 @@ async function fetchCoaches() {
           <td><span id="total-${coach.id}">0.00</span></td>
           <td>
             <button onclick="paySalary(${coach.id})">发放工资</button>
-            <button class="cancel-button" onclick="cancelSalary(${coach.id})">取消</button>
           </td>
         </tr>
       `;
@@ -52,27 +51,6 @@ async function paySalary(coachId) {
     }
 }
 
-// 取消发放工资（触发发放请求）
-async function cancelSalary(coachId) {
-    const bankCard = document.getElementById(`bankcard-${coachId}`).value;
-    const baseSalary = parseFloat(document.getElementById(`base-salary-${coachId}`).value) || 0;
-    const bonus = parseFloat(document.getElementById(`bonus-${coachId}`).value) || 0;
-    const amount = baseSalary + bonus;
-    const note = '取消发放工资'; // 默认取消备注
-
-    const response = await fetch('pay-salary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `coach_id=${coachId}&amount=${amount}&bankcard=${bankCard}&note=${encodeURIComponent(note)}`
-    });
-
-    const result = await response.json();
-    alert(result.message);
-    if (result.success) {
-        fetchCoaches();
-        fetchSalaryRecords();  // 更新工资记录表
-    }
-}
 
 // 获取所有工资发放记录
 async function fetchSalaryRecords() {

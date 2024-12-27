@@ -82,7 +82,9 @@ public class CompleteRealNameServlet extends HttpServlet {
                 return;
             }
         } catch (SQLException e) {
+            response.getWriter().write("{\"error\":\"数据库异常请联系，管理员处理，给您带来的不便敬请谅解！\"}");
             UserMannageSystemLoger.logger.error("发生错误在完成实名信息的CompleteRealNameServlet中验证身份证模块: ", e);
+            return;
         }
 
         sql = "UPDATE users SET name = ?, idnumber = ?, finish_info = 'yes' WHERE id = ?";

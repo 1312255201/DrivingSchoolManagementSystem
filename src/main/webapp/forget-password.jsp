@@ -28,6 +28,12 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
+        .form-container .footer {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
         h2 {
             text-align: center;
             color: #333;
@@ -44,6 +50,7 @@
             color: white;
             border: none;
             cursor: pointer;
+            width: 97%;
         }
         button:hover {
             background-color: #0056b3;
@@ -60,6 +67,9 @@
     <input type="email" id="email" placeholder="请输入邮箱地址" required>
     <button onclick="submitRequest()">提交</button>
     <p class="message" id="message"></p>
+    <div class="footer">
+        <p>需要登录？<a href="login.jsp">返回登录</a></p>
+    </div>
 </div>
 
 <script src="js/forget-password.js"></script>

@@ -1,8 +1,8 @@
-package cn.bugfish.drivingschoolmanagementsystem.fee0709.service;
+package cn.bugfish.drivingschoolmanagementsystem.fee0707.service;
 
 
-import cn.bugfish.drivingschoolmanagementsystem.fee0709.dao.PaymentRecordDAO;
-import cn.bugfish.drivingschoolmanagementsystem.fee0709.po.PaymentRecord;
+import cn.bugfish.drivingschoolmanagementsystem.fee0707.dao.PaymentRecordDAO;
+import cn.bugfish.drivingschoolmanagementsystem.fee0707.po.PaymentRecord;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;

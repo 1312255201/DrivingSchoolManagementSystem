@@ -1,4 +1,4 @@
-package cn.bugfish.drivingschoolmanagementsystem.fee0709.po;
+package cn.bugfish.drivingschoolmanagementsystem.fee0707.po;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

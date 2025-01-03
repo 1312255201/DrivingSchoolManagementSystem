@@ -1,7 +1,7 @@
-package cn.bugfish.drivingschoolmanagementsystem.fee0709.servlet;
+package cn.bugfish.drivingschoolmanagementsystem.fee0707.servlet;
 
-import cn.bugfish.drivingschoolmanagementsystem.fee0709.po.PaymentRecord;
-import cn.bugfish.drivingschoolmanagementsystem.fee0709.service.PaymentRecordService;
+import cn.bugfish.drivingschoolmanagementsystem.fee0707.po.PaymentRecord;
+import cn.bugfish.drivingschoolmanagementsystem.fee0707.service.PaymentRecordService;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

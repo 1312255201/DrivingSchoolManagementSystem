@@ -1,7 +1,7 @@
-package cn.bugfish.drivingschoolmanagementsystem.fee0709.servlet;
+package cn.bugfish.drivingschoolmanagementsystem.fee0707.servlet;
 
-import cn.bugfish.drivingschoolmanagementsystem.fee0709.po.Fee;
-import cn.bugfish.drivingschoolmanagementsystem.fee0709.service.FeeService;
+import cn.bugfish.drivingschoolmanagementsystem.fee0707.po.Fee;
+import cn.bugfish.drivingschoolmanagementsystem.fee0707.service.FeeService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

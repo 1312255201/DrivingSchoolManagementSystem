@@ -28,8 +28,8 @@
 <!-- 搜索栏 -->
 <div class="search-form">
     <form id="searchForm" action="searchExams.jsp" method="get">
-        <input class="search-input" type="text" name="query" placeholder="请输入考试名称">
-        <input class="search-button" type="submit" value="搜索">
+<%--        <input class="search-input" type="text" name="query" placeholder="请输入考试名称">--%>
+<%--        <input class="search-button" type="submit" value="搜索">--%>
     </form>
 </div>
 <table id="available-exams">

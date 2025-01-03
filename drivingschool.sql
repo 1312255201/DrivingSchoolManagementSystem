@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26-log)
  File Encoding         : 65001
 
- Date: 21/12/2024 20:38:21
+ Date: 03/01/2025 14:11:43
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,10 @@ CREATE TABLE `appointment`  (
   `student_id` int(11) NOT NULL COMMENT '学生id\r\n',
   `schedule_id` int(11) NOT NULL COMMENT '预约时间的唯一标识id',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `student_schedule`(`student_id`, `schedule_id`) USING BTREE COMMENT '将studentid 和scheduleid 一起作为唯一索引，可以确保不会插入相同预约信息到数据库，将操作给数据库，减少后端代码。'
+  UNIQUE INDEX `student_schedule`(`student_id`, `schedule_id`) USING BTREE COMMENT '将studentid 和scheduleid 一起作为唯一索引，可以确保不会插入相同预约信息到数据库，将操作给数据库，减少后端代码。',
+  INDEX `time_id_key`(`schedule_id`) USING BTREE,
+  CONSTRAINT `student_id_key` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `time_id_key` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用于记录预约对应关系表\r\n表设计人，软件22-7王赟昊' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -89,9 +92,10 @@ CREATE TABLE `exam_selection`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_student`(`student_id`) USING BTREE,
   INDEX `fk_course`(`exam_id`) USING BTREE,
+  UNIQUE INDEX `fk_double`(`student_id`, `exam_id`) USING BTREE,
   CONSTRAINT `exam_selection_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_selection_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生考试记录表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生考试记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for exams
@@ -178,7 +182,7 @@ CREATE TABLE `payment_records`  (
   PRIMARY KEY (`payment_id`) USING BTREE,
   INDEX `fee_id`(`fee_id`) USING BTREE,
   CONSTRAINT `payment_records_ibfk_1` FOREIGN KEY (`fee_id`) REFERENCES `fees` (`fee_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for refunds
@@ -211,7 +215,7 @@ CREATE TABLE `salary_payments`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coach_id`(`coach_id`) USING BTREE,
   CONSTRAINT `salary_payments_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for schedule

@@ -73,7 +73,11 @@
           <artifactId>javax.mail</artifactId>
           <version>1.6.2</version>
       </dependency>
-
+      <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis</artifactId>
+          <version>3.5.16</version>
+      </dependency>
   </dependencies>
 
     <build>
@@ -83,6 +87,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
             </plugin>
+
         </plugins>
     </build>
 </project>
